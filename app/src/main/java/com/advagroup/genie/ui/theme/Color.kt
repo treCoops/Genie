@@ -13,3 +13,7 @@ val LightPrimary = Color(0xFF6200EE)
 val LightOnPrimary = Color(0xFFFFFFFF)
 val LightBackground = Color(0xFFFFFFFF)
 val LightTextMainColor = Color(0xFF3A3B3E)
+
+//Common Colors
+val LightGreenColor = Color(0xFFBAD4AA)
+val DefaultGrayColor = Color(0xFFD9D9D9)

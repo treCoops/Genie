@@ -13,21 +13,27 @@
         android:theme="@style/Theme.Genie"
         tools:targetApi="31">
         <activity
-            android:name=".views.FirstActivity"
-            android:exported="true"
-            android:label="@string/app_name"
+            android:name=".views.splash.FirstActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity"
             android:theme="@style/Theme.Genie">
+        </activity>
+        <activity
+            android:name=".views.main.MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.Genie">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity
-            android:name=".views.login.LoginActivity"
-            android:exported="false"
-            android:label="@string/title_activity_login"
-            android:theme="@style/Theme.Genie" />
     </application>
 
 </manifest>

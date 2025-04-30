@@ -1,4 +1,4 @@
-package com.advagroup.genie.views
+package com.advagroup.genie.views.splash
 
 import android.content.Intent
 import android.os.Bundle
@@ -28,7 +28,7 @@ import com.advagroup.genie.R
 import com.advagroup.genie.ui.theme.GinieTheme
 import com.advagroup.genie.ui.theme.QuickSand
 import com.advagroup.genie.ui.theme.SFPro
-import com.advagroup.genie.views.login.LoginActivity
+import com.advagroup.genie.views.main.MainActivity
 
 class FirstActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,9 +48,9 @@ class FirstActivity : ComponentActivity() {
         }
 
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, LoginActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
-        }, 2000)
+        }, 1000)
     }
 }
 

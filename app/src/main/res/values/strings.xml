@@ -2,4 +2,12 @@
     <string name="app_name">Ginie</string>
     <string name="app_splash_sub_title">Your Personal AI Companion</string>
     <string name="title_activity_login">LoginActivity</string>
+
+    <string name="title_welcome_screen">Welcome to Genie</string>
+
+    <array name="welcome_screen_sentences">
+        <item>Your companion for better mental health and well-being.</item>
+        <item>Guiding you toward a brighter mind and peaceful living.</item>
+        <item>Supporting your journey to emotional balance and clarity.</item>
+    </array>
 </resources>
