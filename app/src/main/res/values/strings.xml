@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Ginie</string>
+    <string name="app_splash_sub_title">Your Personal AI Companion</string>
+    <string name="title_activity_login">LoginActivity</string>
+</resources>
