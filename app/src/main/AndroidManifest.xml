@@ -10,30 +10,30 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Genie"
+        android:theme="@style/Theme.App.Starting"
         tools:targetApi="31">
+
         <activity
-            android:name=".views.splash.FirstActivity"
+            android:name=".views.splash.SplashActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="DiscouragedApi,LockedOrientationActivity"
-            android:theme="@style/Theme.Genie">
-        </activity>
+            android:theme="@style/Theme.Genie"/>
+
         <activity
             android:name=".views.main.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="DiscouragedApi,LockedOrientationActivity"
-            android:label="@string/title_activity_login"
-            android:theme="@style/Theme.Genie">
+            android:theme="@style/Theme.App.Starting">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
         </activity>
+
     </application>
 
 </manifest>

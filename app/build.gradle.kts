@@ -66,4 +66,22 @@ dependencies {
 
     //Compose Constraint Layout
     implementation(libs.androidx.constraintlayout.compose)
+
+    //Android Splash
+    implementation(libs.androidx.core.splashscreen)
+
+    //Kotlin Coroutines
+    implementation(libs.kotlinx.coroutines.android)
+
+    //Life Cycle and ViewModel
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    kapt(libs.androidx.lifecycle.compiler)
+
+    //Live Data
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+
+    //Saved State
+    implementation(libs.androidx.lifecycle.viewmodel.savedstate)
+
 }
