@@ -33,7 +33,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.advagroup.genie.R
-import com.advagroup.genie.ui.theme.GinieTheme
+import com.advagroup.genie.ui.theme.GenieTheme
 import com.advagroup.genie.ui.theme.QuickSand
 import com.advagroup.genie.ui.theme.SFPro
 import com.advagroup.genie.views.main.MainActivity
@@ -45,7 +45,7 @@ class SplashActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            GinieTheme {
+            GenieTheme {
                 Scaffold(
                     modifier = Modifier
                         .fillMaxSize()

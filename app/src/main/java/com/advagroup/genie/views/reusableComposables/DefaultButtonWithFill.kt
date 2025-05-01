@@ -1,6 +1,7 @@
 package com.advagroup.genie.views.reusableComposables
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -18,14 +19,14 @@ import com.advagroup.genie.ui.theme.LightGreenColor
 import com.advagroup.genie.ui.theme.SFPro
 
 @Composable
-fun DefaultFormButtonWithFill(title: String, onClicked : () -> Unit) {
+fun DefaultFormButtonWithFill(title: String, paddingValues: PaddingValues, onClicked : () -> Unit) {
 
     Button(
         onClick = onClicked,
         modifier = Modifier
             .fillMaxWidth()
             .height(70.dp)
-            .padding(horizontal = 30.dp)
+            .padding(paddingValues)
             .border(
                 width = 2.dp,
                 color = LightGreenColor,

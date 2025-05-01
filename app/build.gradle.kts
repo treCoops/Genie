@@ -6,6 +6,9 @@ plugins {
     //KSP and KAPT
     alias(libs.plugins.org.jetbrains.kotlin.kapt)
     alias(libs.plugins.kotlin.ksp)
+
+    //Firebase
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -17,7 +20,7 @@ android {
         minSdk = 24
         targetSdk = 35
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -83,5 +86,12 @@ dependencies {
 
     //Saved State
     implementation(libs.androidx.lifecycle.viewmodel.savedstate)
+
+    //System UI Control
+    implementation(libs.accompanist.systemuicontroller)
+
+    //Firebase
+    implementation(libs.firebase.bom)
+
 
 }

@@ -10,4 +10,37 @@
         <item>Guiding you toward a brighter mind and peaceful living.</item>
         <item>Supporting your journey to emotional balance and clarity.</item>
     </array>
+
+    <string name="welcome_back">Welcome Back!</string>
+    <string name="login">Login</string>
+    <string name="forget_password">Forget Password?</string>
+    <string name="no_account">Don\'t have an account yet?</string>
+    <string name="or">Or</string>
+    <string name="register_here">Register Here</string>
+
+    <string name="signup">Sign Up</string>
+    <string name="create_your_account">Create your account</string>
+    <string name="first_name">First Name</string>
+    <string name="first_name_placeholder">Enter your first name</string>
+    <string name="last_name">Last Name</string>
+    <string name="last_name_placeholder">Enter your last name</string>
+    <string name="date_of_birth">Date of Birth</string>
+    <string name="date_of_birth_placeholder">Select your date of birth</string>
+    <string name="gender">Gender</string>
+    <string name="username_placeholder">Enter your username</string>
+    <string name="username">Username</string>
+    <string name="password_placeholder">Enter your password</string>
+    <string name="password">Password</string>
+    <string name="confirm_password_placeholder">Enter your password again</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="onboarding">Onboarding</string>
+    <string name="emergency_contact_info">Emergency Contact Info</string>
+    <string name="caregiver_info">Caregiver Info</string>
+    <string name="emergency_person_name">Name of the Person</string>
+    <string name="caregiver_name">Name of the Caregiver</string>
+    <string name="enter_name_placeholder">Enter the name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="enter_phone_number_placeholder">Enter the phone number</string>
+    <string name="email_address">Email Address</string>
+    <string name="enter_email_address_placeholder">Enter the email address</string>
 </resources>

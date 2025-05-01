@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,7 +32,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.advagroup.genie.R
-import com.advagroup.genie.ui.theme.DefaultGrayColor
+import com.advagroup.genie.navigation.Destinations
+import com.advagroup.genie.ui.theme.DefaultGrayDark
 import com.advagroup.genie.ui.theme.LightGreenColor
 import com.advagroup.genie.ui.theme.SFPro
 import com.advagroup.genie.views.reusableComposables.DefaultFormButtonWithFill
@@ -43,13 +45,14 @@ fun WelcomeScreen(navController: NavController) {
         modifier = Modifier.fillMaxSize()
     ) { innerPadding ->
         LoginMainScreen(
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(innerPadding),
+            navController
         )
     }
 }
 
 @Composable
-private fun LoginMainScreen(modifier: Modifier) {
+private fun LoginMainScreen(modifier: Modifier, navController: NavController) {
     val scrollState = rememberScrollState()
 
     /* Column(
@@ -81,7 +84,8 @@ private fun LoginMainScreen(modifier: Modifier) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(bottom = 5.dp)
-                .align(Alignment.BottomCenter)
+                .align(Alignment.BottomCenter),
+            navController
         )
     }
 }
@@ -109,21 +113,29 @@ private fun WelcomeHeadingTextComposable(){
 }
 
 @Composable
-private fun ButtonContainerComposable(modifier: Modifier) {
+private fun ButtonContainerComposable(modifier: Modifier, navController: NavController) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
-        DefaultFormButtonWithoutFill("Skip", {
-
-        })
+        DefaultFormButtonWithoutFill(
+            "Skip",
+            paddingValues = PaddingValues(horizontal = 20.dp),
+            {
+                navController.navigate(Destinations.LoginScreen.route)
+            }
+        )
 
         Spacer(modifier = Modifier.height(15.dp))
 
-        DefaultFormButtonWithFill("Next", {
-
-        })
+        DefaultFormButtonWithFill(
+            "Next",
+            paddingValues = PaddingValues(horizontal = 20.dp),
+            {
+                navController.navigate(Destinations.LoginScreen.route)
+            }
+        )
     }
 }
 
@@ -178,7 +190,7 @@ private fun WelcomeTextScrollerComposable() {
                         .padding(horizontal = 2.dp)
                         .size(if (selected) 12.dp else 12.dp)
                         .background(
-                            color = if (selected) LightGreenColor else DefaultGrayColor,
+                            color = if (selected) LightGreenColor else DefaultGrayDark,
                             shape = MaterialTheme.shapes.small
                         )
                 )

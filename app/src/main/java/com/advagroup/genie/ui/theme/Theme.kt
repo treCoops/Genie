@@ -11,17 +11,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = DarkPrimary,
+    primary = DarkPrimary, //Color for Text field cursor
     onPrimary = DarkOnPrimary,
-    background = DarkBackground,
-    onBackground = DarkTextMainColor
+    background = DarkBackground, //Color for views
+    onBackground = DarkTextMainColor, //Color for text on views
+    onSurfaceVariant = DefaultGrayDark ////Color for text field placeholder
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = LightPrimary,
     onPrimary = LightOnPrimary,
     background = LightBackground,
-    onBackground = LightTextMainColor
+    onBackground = LightTextMainColor,
+    onSurfaceVariant = DefaultGrayLight
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -35,9 +37,9 @@ private val LightColorScheme = lightColorScheme(
 )
 
 @Composable
-fun GinieTheme(
+fun GenieTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    //darkTheme: Boolean = false,
+    //darkTheme: Boolean = true,
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = false,
     content: @Composable () -> Unit

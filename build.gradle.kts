@@ -15,6 +15,9 @@ plugins {
     //KSP and KAPT
     alias(libs.plugins.org.jetbrains.kotlin.kapt) apply false
     alias(libs.plugins.kotlin.ksp) apply false
+
+    //Firebase
+    id("com.google.gms.google-services") version "4.4.2" apply false
 }
 
 tasks.register<Delete>("clean") {

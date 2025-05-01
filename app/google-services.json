@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "193170265971",
+    "project_id": "ginie-d26ca",
+    "storage_bucket": "ginie-d26ca.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:193170265971:android:30ff802230923bb5549706",
+        "android_client_info": {
+          "package_name": "com.advagroup.genie"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZyDBO8I0nAkMD_vb3OF3JyLkwk8K0dIc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

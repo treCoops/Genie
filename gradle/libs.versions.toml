@@ -27,6 +27,12 @@ kotlinxCoroutinesAndroid = "1.7.3"
 #Android Lifecycle
 lifecycleRuntimeKtx = "2.8.7"
 
+#System UI
+accompanistSystemuicontroller = "0.36.0"
+
+#Firebase
+firebaseBom = "33.13.0"
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -65,6 +71,12 @@ androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-lived
 
 #Saved State
 androidx-lifecycle-viewmodel-savedstate = { module = "androidx.lifecycle:lifecycle-viewmodel-savedstate", version.ref = "lifecycleRuntimeKtx" }
+
+#System UI
+accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
+
+#Firebase
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 
 
 [plugins]
