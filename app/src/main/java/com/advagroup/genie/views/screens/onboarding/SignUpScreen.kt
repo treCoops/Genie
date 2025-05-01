@@ -23,15 +23,21 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDefaults
+import androidx.compose.material3.DatePickerDialog
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
+import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -39,6 +45,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
@@ -51,6 +58,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.advagroup.genie.R
+import com.advagroup.genie.helpers.convertTimeMillisLongToString
 import com.advagroup.genie.navigation.Destinations
 import com.advagroup.genie.ui.theme.EditTextBackgroundColor
 import com.advagroup.genie.ui.theme.LightGreenColor
@@ -58,7 +66,7 @@ import com.advagroup.genie.ui.theme.SFPro
 import com.advagroup.genie.views.reusableComposables.DefaultFormButtonWithFill
 import com.advagroup.genie.views.reusableComposables.DefaultNavigationTopBarWithIcon
 import com.advagroup.genie.views.reusableComposables.DefaultTextField
-import com.advagroup.genie.views.reusableComposables.DefaultTextFieldWithTrailingIcon
+import java.util.Calendar
 
 @Composable
 fun SignUpScreen(navController: NavController) {
@@ -111,6 +119,8 @@ private fun ContentView(navController: NavController) {
     var userName by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
+
+    var showDatePicker by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -171,11 +181,26 @@ private fun ContentView(navController: NavController) {
 
         DateOfBirthComposable(
             title = stringResource(R.string.date_of_birth),
-            placeholder = stringResource(R.string.date_of_birth_placeholder),
+            value = dateOfBirth,
             onClicked = {
-
+                showDatePicker = true
             }
         )
+
+        if (showDatePicker) {
+            DatePickerComposable(
+                onDateSelected = { selectedDate ->
+                    selectedDate?.let {
+                        dateOfBirth = it.convertTimeMillisLongToString("yyyy-MM-dd")
+                    }
+
+                    showDatePicker = false
+                },
+                onDismiss = {
+                    showDatePicker = false
+                }
+            )
+        }
 
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -250,6 +275,83 @@ private fun ContentView(navController: NavController) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DatePickerComposable(
+    onDateSelected: (Long?) -> Unit,
+    onDismiss: () -> Unit
+) {
+    val calendar = Calendar.getInstance()
+    val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+    val currentTimeMillis = calendar.timeInMillis
+
+    val datePickerState = rememberDatePickerState(
+        yearRange = 1900..currentYear,
+        selectableDates = object : SelectableDates {
+            override fun isSelectableDate(utcTimeMillis: Long): Boolean {
+                return utcTimeMillis <= currentTimeMillis
+            }
+        }
+    )
+
+    DatePickerDialog(
+        colors = DatePickerDefaults.colors(
+            containerColor = MaterialTheme.colorScheme.background,
+            titleContentColor = MaterialTheme.colorScheme.onBackground,
+            headlineContentColor = MaterialTheme.colorScheme.background,
+            weekdayContentColor = MaterialTheme.colorScheme.background,
+            subheadContentColor = MaterialTheme.colorScheme.background,
+            navigationContentColor = MaterialTheme.colorScheme.background
+        ),
+        onDismissRequest = onDismiss,
+        confirmButton = {
+            TextButton(onClick = {
+                onDateSelected(datePickerState.selectedDateMillis)
+                onDismiss()
+            }) {
+                Text(
+                    text = "OK",
+                    color = LightGreenColor,
+                    fontFamily = SFPro,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 17.sp
+                )
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text(
+                    text = "Cancel",
+                    color = LightGreenColor,
+                    fontFamily = SFPro,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 17.sp
+                )
+            }
+        }
+    ) {
+        DatePicker(
+            state = datePickerState,
+            title = {
+                Text(
+                    text = "Select your birthday",
+                    fontFamily = SFPro,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 17.sp,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier
+                        .padding(top = 20.dp, start = 25.dp)
+                )
+            },
+            showModeToggle = false,
+            colors = DatePickerDefaults.colors(
+                containerColor = MaterialTheme.colorScheme.background,
+                yearContentColor = MaterialTheme.colorScheme.onBackground
+            )
+        )
+    }
+}
+
 @Composable
 private fun TextFieldComposable(value: String, onValueChange: (String) -> Unit, title: String, placeholder: String, isPassword: Boolean = false, keyboardOptions: KeyboardOptions) {
 
@@ -294,7 +396,7 @@ private fun TextFieldComposable(value: String, onValueChange: (String) -> Unit, 
 }
 
 @Composable
-private fun DateOfBirthComposable(title: String, placeholder: String, onClicked: () -> Unit) {
+private fun DateOfBirthComposable(title: String, value: String, onClicked: () -> Unit) {
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -328,16 +430,21 @@ private fun DateOfBirthComposable(title: String, placeholder: String, onClicked:
                     .fillMaxWidth()
                     .padding(horizontal = 15.dp)
             ) {
-                Text(
-                    text = placeholder,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontFamily = SFPro,
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 17.sp,
-                    textAlign = TextAlign.Start,
-                    modifier = Modifier
-                        .align(Alignment.CenterStart)
-                )
+
+                if(value == ""){
+                    DateOfBirthTextComposable(
+                        value = stringResource(R.string.date_of_birth_placeholder),
+                        modifier = Modifier
+                            .align(Alignment.CenterStart)
+                    )
+                } else {
+                    DateOfBirthTextComposable(
+                        value = value,
+                        modifier = Modifier
+                            .align(Alignment.CenterStart),
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+                }
 
                 Icon(
                     imageVector = Icons.Filled.DateRange,
@@ -355,42 +462,16 @@ private fun DateOfBirthComposable(title: String, placeholder: String, onClicked:
 }
 
 @Composable
-private fun TextFieldWithTrailingIconComposable(value: String, onValueChange: (String) -> Unit, title: String, placeholder: String) {
-
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
-
-        Text(
-            text = title,
-            modifier = Modifier
-                .fillMaxWidth(),
-            fontFamily = SFPro,
-            fontWeight = FontWeight.SemiBold,
-            fontSize = 17.sp
-        )
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        DefaultTextFieldWithTrailingIcon(
-            value = value,
-            onValueChange = onValueChange,
-            placeholder = placeholder,
-            icon = Icons.Outlined.DateRange,
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Next
-            ),
-            keyboardActions = KeyboardActions(
-                onDone = {
-
-                }
-            ),
-            visualTransformation = VisualTransformation.None,
-            modifier = Modifier
-                .fillMaxWidth()
-        )
-    }
+private fun DateOfBirthTextComposable(value: String, modifier: Modifier, color: Color = MaterialTheme.colorScheme.onSurfaceVariant){
+    Text(
+        text = value,
+        color = color,
+        fontFamily = SFPro,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 17.sp,
+        textAlign = TextAlign.Start,
+        modifier = modifier
+    )
 }
 
 @Composable

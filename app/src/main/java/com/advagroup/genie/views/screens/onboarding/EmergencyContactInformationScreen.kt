@@ -77,10 +77,15 @@ private fun MainView(navController: NavController) {
 private fun ContentView(navController: NavController) {
 
     val scrollState = rememberScrollState()
+
     var personName by remember {
         mutableStateOf("")
     }
     var phoneNumber by remember {
+        mutableStateOf("")
+    }
+
+    var emailAddress by remember {
         mutableStateOf("")
     }
 
@@ -133,9 +138,9 @@ private fun ContentView(navController: NavController) {
         Spacer(modifier = Modifier.height(30.dp))
 
         TextFieldComposable(
-            value = phoneNumber,
+            value = emailAddress,
             onValueChange = {
-                phoneNumber = it
+                emailAddress = it
             },
             stringResource(R.string.email_address),
             stringResource(R.string.enter_email_address_placeholder),
