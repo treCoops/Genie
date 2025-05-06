@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Ginie</string>
+    <string name="app_name">Genie</string>
     <string name="app_splash_sub_title">Your Personal AI Companion</string>
     <string name="title_activity_login">LoginActivity</string>
 
@@ -43,4 +43,23 @@
     <string name="enter_phone_number_placeholder">Enter the phone number</string>
     <string name="email_address">Email Address</string>
     <string name="enter_email_address_placeholder">Enter the email address</string>
+    <string name="health_conditions">Health Conditions</string>
+    <string name="please_select_health_conditions">Please select your health conditions</string>
+    <string name="notes">Notes</string>
+    <string name="additional_notes">Please type additional notes</string>
+    <string name="current_medications">Current Medications</string>
+
+    <string name="medication_name">Medication Name</string>
+    <string name="medication_take_and_dosage">Take &amp; Dosage</string>
+    <string name="medication_take_and_dosage_value">%1$s, %2$s</string>
+    <string name="medication_frequency">Frequency</string>
+    <string name="medication_type">Type</string>
+    <string name="add_medication">Add medication</string>
+    <string name="medication_details">Medication details</string>
+    <string name="medication_type_full">Medication type</string>
+    <string name="enter_medication_name_placeholder">Enter medication name</string>
+    <string name="select_medication_type">Select the medication type</string>
+    <string name="medication_take">Medication Take</string>
+    <string name="medication_frequency_full">Medication Frequency</string>
+    <string name="select_the_time">Select the time</string>
 </resources>

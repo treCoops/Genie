@@ -1,8 +1,10 @@
 package com.advagroup.genie.views.screens.onboarding
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,20 +12,22 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.*
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -33,14 +37,15 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.advagroup.genie.R
 import com.advagroup.genie.navigation.Destinations
+import com.advagroup.genie.ui.theme.LightGreenColor
 import com.advagroup.genie.ui.theme.SFPro
 import com.advagroup.genie.views.reusableComposables.buttons.DefaultFormButtonWithFill
 import com.advagroup.genie.views.reusableComposables.buttons.DefaultFormButtonWithoutFill
 import com.advagroup.genie.views.reusableComposables.titleBar.DefaultNavigationTopBarWithIcon
-import com.advagroup.genie.views.reusableComposables.textFields.DefaultTextField
+import com.advagroup.genie.views.reusableComposables.textFields.DefaultTextFieldMultiline
 
 @Composable
-fun CareGiverInformationScreen(navController: NavController) {
+fun HealthConditionScreen(navController: NavController) {
 
     Surface(
         modifier = Modifier
@@ -54,6 +59,7 @@ fun CareGiverInformationScreen(navController: NavController) {
 
 @Composable
 private fun MainView(navController: NavController) {
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -71,6 +77,7 @@ private fun MainView(navController: NavController) {
 
         ContentView(navController)
     }
+
 }
 
 @Composable
@@ -78,26 +85,34 @@ private fun ContentView(navController: NavController) {
 
     val scrollState = rememberScrollState()
 
-    var personName by remember {
-        mutableStateOf("")
-    }
-    var phoneNumber by remember {
-        mutableStateOf("")
-    }
+    val healthConditionsList = listOf(
+        "Hypertension",
+        "Diabetes",
+        "Arthritis",
+        "Heart Disease",
+        "Osteoporosis",
+        "Dementia (including Alzheimer)",
+        "Vision Problems",
+        "Kidney Disease",
+        "Cancer",
+        "Stroke",
+        "Sleep Disorders",
+    )
 
-    var emailAddress by remember {
+    val checkedStatesHealthConditions = remember { mutableStateMapOf<String, Boolean>() }
+
+    var notes by remember {
         mutableStateOf("")
     }
-
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 20.dp)
+            .padding(20.dp)
             .verticalScroll(scrollState)
     ) {
         Text(
-            text = stringResource(R.string.caregiver_info),
+            text = stringResource(R.string.health_conditions),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 20.dp),
@@ -109,47 +124,37 @@ private fun ContentView(navController: NavController) {
 
         Spacer(modifier = Modifier.height(30.dp))
 
+        Text(
+            text = stringResource(R.string.please_select_health_conditions),
+            modifier = Modifier
+                .fillMaxWidth(),
+            fontFamily = SFPro,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 17.sp,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        ConditionCheckBoxesComposable(
+            healthConditions = healthConditionsList,
+            checkedStates = checkedStatesHealthConditions
+        )
+
+        Spacer(modifier = Modifier.height(30.dp))
+
         TextFieldComposable(
-            value = personName,
+            value = notes,
             onValueChange = {
-                personName = it
+                notes = it
             },
-            stringResource(R.string.caregiver_name),
-            stringResource(R.string.enter_name_placeholder),
+            title = stringResource(R.string.notes),
+            placeholder = stringResource(R.string.additional_notes),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Next
-            )
-        )
-
-        Spacer(modifier = Modifier.height(30.dp))
-
-        TextFieldComposable(
-            value = phoneNumber,
-            onValueChange = {
-                phoneNumber = it
-            },
-            stringResource(R.string.phone_number),
-            stringResource(R.string.enter_phone_number_placeholder),
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Phone,
-                imeAction = ImeAction.Next
-            )
-        )
-
-        Spacer(modifier = Modifier.height(30.dp))
-
-        TextFieldComposable(
-            value = emailAddress,
-            onValueChange = {
-                emailAddress = it
-            },
-            stringResource(R.string.email_address),
-            stringResource(R.string.enter_email_address_placeholder),
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Email,
                 imeAction = ImeAction.Done
             )
+
         )
 
         Spacer(modifier = Modifier.height(50.dp))
@@ -158,7 +163,7 @@ private fun ContentView(navController: NavController) {
             title = "Next",
             paddingValues = PaddingValues()
         ) {
-            navController.navigate(Destinations.HealthConditionScreen.route)
+            navController.navigate(Destinations.MedicationScreen.route)
         }
 
         Spacer(modifier = Modifier.height(15.dp))
@@ -167,11 +172,10 @@ private fun ContentView(navController: NavController) {
             "Skip",
             paddingValues = PaddingValues()
         ) {
-            navController.navigate(Destinations.HealthConditionScreen.route)
+            navController.navigate(Destinations.MedicationScreen.route)
         }
 
         Spacer(modifier = Modifier.height(50.dp))
-
     }
 
 }
@@ -195,7 +199,7 @@ private fun TextFieldComposable(value: String, onValueChange: (String) -> Unit, 
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        DefaultTextField(
+        DefaultTextFieldMultiline(
             value = value,
             onValueChange = onValueChange,
             placeholder = placeholder,
@@ -210,4 +214,55 @@ private fun TextFieldComposable(value: String, onValueChange: (String) -> Unit, 
                 .fillMaxWidth()
         )
     }
+}
+
+@Composable
+private fun ConditionCheckBoxesComposable(healthConditions: List<String>, checkedStates: MutableMap<String, Boolean>) {
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        healthConditions.forEach { condition ->
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .selectable(
+                        selected = checkedStates[condition] == true,
+                        role = Role.Checkbox,
+                        onClick = {
+                            val currentStatus = checkedStates[condition] == true
+                            checkedStates[condition] = !currentStatus
+                        }
+                    )
+            ) {
+                Box(modifier = Modifier.size(40.dp)) {
+                    Checkbox(
+                        checked = checkedStates[condition] == true,
+                        onCheckedChange = { isChecked ->
+                            checkedStates[condition] = isChecked
+                        },
+                        colors = CheckboxDefaults.colors(
+                            checkedColor = LightGreenColor,
+                            uncheckedColor = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    )
+                }
+
+                Text(
+                    text = condition,
+                    modifier = Modifier
+                        .padding(top = 9.dp, start = 10.dp)
+                        .fillMaxWidth(),
+                    fontFamily = SFPro,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 17.sp,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+            }
+
+        }
+    }
+
 }

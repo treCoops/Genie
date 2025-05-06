@@ -1,4 +1,4 @@
-package com.advagroup.genie.views.reusableComposables
+package com.advagroup.genie.views.reusableComposables.buttons
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.PaddingValues

@@ -1,11 +1,9 @@
-package com.advagroup.genie.views.reusableComposables
+package com.advagroup.genie.views.reusableComposables.textFields
 
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -13,7 +11,6 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.VisualTransformation
@@ -24,11 +21,10 @@ import com.advagroup.genie.ui.theme.EditTextBackgroundColor
 import com.advagroup.genie.ui.theme.SFPro
 
 @Composable
-fun DefaultTextFieldWithTrailingIcon(
+fun DefaultTextFieldMultiline(
     value: String,
     onValueChange: (String) -> Unit,
     placeholder: String = "",
-    icon: ImageVector,
     keyboardOptions: KeyboardOptions,
     keyboardActions: KeyboardActions,
     visualTransformation: VisualTransformation,
@@ -49,15 +45,6 @@ fun DefaultTextFieldWithTrailingIcon(
                 fontSize = 17.sp
             )
         },
-        trailingIcon = {
-           Icon(
-               imageVector = icon,
-               contentDescription = "Person Icon",
-               tint = MaterialTheme.colorScheme.onSurfaceVariant,
-               modifier = Modifier
-                   .size(25.dp)
-           )
-        },
         textStyle = TextStyle(
             fontFamily = SFPro,
             fontWeight = FontWeight.SemiBold,
@@ -69,7 +56,7 @@ fun DefaultTextFieldWithTrailingIcon(
         keyboardActions = keyboardActions,
         visualTransformation = visualTransformation,
         modifier = modifier
-            .height(70.dp),
+            .height(210.dp),
         shape = RoundedCornerShape(18.dp),
         colors = TextFieldDefaults.colors(
             focusedContainerColor = EditTextBackgroundColor,
@@ -77,11 +64,9 @@ fun DefaultTextFieldWithTrailingIcon(
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,
-            errorIndicatorColor = Color.Transparent,
-            //focusedLeadingIconColor = MaterialTheme.colorScheme.onBackground,
-            //unfocusedLeadingIconColor = MaterialTheme.colorScheme.onSurfaceVariant
+            errorIndicatorColor = Color.Transparent
         ),
-        singleLine = true
+        maxLines = 10
     )
 
 }

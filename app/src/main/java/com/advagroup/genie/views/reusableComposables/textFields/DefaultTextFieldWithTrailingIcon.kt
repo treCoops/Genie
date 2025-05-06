@@ -1,4 +1,4 @@
-package com.advagroup.genie.views.reusableComposables
+package com.advagroup.genie.views.reusableComposables.textFields
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -24,7 +24,7 @@ import com.advagroup.genie.ui.theme.EditTextBackgroundColor
 import com.advagroup.genie.ui.theme.SFPro
 
 @Composable
-fun DefaultTextFieldWithLeadingIcon(
+fun DefaultTextFieldWithTrailingIcon(
     value: String,
     onValueChange: (String) -> Unit,
     placeholder: String = "",
@@ -49,7 +49,7 @@ fun DefaultTextFieldWithLeadingIcon(
                 fontSize = 17.sp
             )
         },
-        leadingIcon = {
+        trailingIcon = {
            Icon(
                imageVector = icon,
                contentDescription = "Person Icon",

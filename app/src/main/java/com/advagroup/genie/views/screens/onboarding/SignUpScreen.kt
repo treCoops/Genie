@@ -25,9 +25,6 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.DatePicker
-import androidx.compose.material3.DatePickerDefaults
-import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -36,7 +33,6 @@ import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -63,9 +59,10 @@ import com.advagroup.genie.navigation.Destinations
 import com.advagroup.genie.ui.theme.EditTextBackgroundColor
 import com.advagroup.genie.ui.theme.LightGreenColor
 import com.advagroup.genie.ui.theme.SFPro
-import com.advagroup.genie.views.reusableComposables.DefaultFormButtonWithFill
-import com.advagroup.genie.views.reusableComposables.DefaultNavigationTopBarWithIcon
-import com.advagroup.genie.views.reusableComposables.DefaultTextField
+import com.advagroup.genie.views.reusableComposables.buttons.DefaultFormButtonWithFill
+import com.advagroup.genie.views.reusableComposables.pickers.CalenderDatePickerDialog
+import com.advagroup.genie.views.reusableComposables.titleBar.DefaultNavigationTopBarWithIcon
+import com.advagroup.genie.views.reusableComposables.textFields.DefaultTextField
 import java.util.Calendar
 
 @Composable
@@ -135,7 +132,8 @@ private fun ContentView(navController: NavController) {
                 .padding(top = 20.dp),
             fontFamily = SFPro,
             fontWeight = FontWeight.SemiBold,
-            fontSize = 28.sp
+            fontSize = 28.sp,
+            color = MaterialTheme.colorScheme.onBackground
         )
 
         Spacer(modifier = Modifier.height(30.dp))
@@ -169,15 +167,6 @@ private fun ContentView(navController: NavController) {
         )
 
         Spacer(modifier = Modifier.height(20.dp))
-
-        //        TextFieldWithTrailingIconComposable(
-        //            value = dateOfBirth,
-        //            onValueChange = {
-        //                dateOfBirth = it
-        //            },
-        //            stringResource(R.string.date_of_birth),
-        //            stringResource(R.string.date_of_birth_placeholder)
-        //        )
 
         DateOfBirthComposable(
             title = stringResource(R.string.date_of_birth),
@@ -277,10 +266,7 @@ private fun ContentView(navController: NavController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DatePickerComposable(
-    onDateSelected: (Long?) -> Unit,
-    onDismiss: () -> Unit
-) {
+private fun DatePickerComposable(onDateSelected: (Long?) -> Unit, onDismiss: () -> Unit) {
     val calendar = Calendar.getInstance()
     val currentYear = Calendar.getInstance().get(Calendar.YEAR)
     val currentTimeMillis = calendar.timeInMillis
@@ -294,62 +280,7 @@ fun DatePickerComposable(
         }
     )
 
-    DatePickerDialog(
-        colors = DatePickerDefaults.colors(
-            containerColor = MaterialTheme.colorScheme.background,
-            titleContentColor = MaterialTheme.colorScheme.onBackground,
-            headlineContentColor = MaterialTheme.colorScheme.background,
-            weekdayContentColor = MaterialTheme.colorScheme.background,
-            subheadContentColor = MaterialTheme.colorScheme.background,
-            navigationContentColor = MaterialTheme.colorScheme.background
-        ),
-        onDismissRequest = onDismiss,
-        confirmButton = {
-            TextButton(onClick = {
-                onDateSelected(datePickerState.selectedDateMillis)
-                onDismiss()
-            }) {
-                Text(
-                    text = "OK",
-                    color = LightGreenColor,
-                    fontFamily = SFPro,
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 17.sp
-                )
-            }
-        },
-        dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text(
-                    text = "Cancel",
-                    color = LightGreenColor,
-                    fontFamily = SFPro,
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 17.sp
-                )
-            }
-        }
-    ) {
-        DatePicker(
-            state = datePickerState,
-            title = {
-                Text(
-                    text = "Select your birthday",
-                    fontFamily = SFPro,
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 17.sp,
-                    color = MaterialTheme.colorScheme.onBackground,
-                    modifier = Modifier
-                        .padding(top = 20.dp, start = 25.dp)
-                )
-            },
-            showModeToggle = false,
-            colors = DatePickerDefaults.colors(
-                containerColor = MaterialTheme.colorScheme.background,
-                yearContentColor = MaterialTheme.colorScheme.onBackground
-            )
-        )
-    }
+    CalenderDatePickerDialog(datePickerState, onDateSelected, onDismiss)
 }
 
 @Composable
@@ -373,7 +304,8 @@ private fun TextFieldComposable(value: String, onValueChange: (String) -> Unit, 
                 .fillMaxWidth(),
             fontFamily = SFPro,
             fontWeight = FontWeight.SemiBold,
-            fontSize = 17.sp
+            fontSize = 17.sp,
+            color = MaterialTheme.colorScheme.onBackground
         )
 
         Spacer(modifier = Modifier.height(10.dp))
@@ -408,7 +340,8 @@ private fun DateOfBirthComposable(title: String, value: String, onClicked: () ->
                 .fillMaxWidth(),
             fontFamily = SFPro,
             fontWeight = FontWeight.SemiBold,
-            fontSize = 17.sp
+            fontSize = 17.sp,
+            color = MaterialTheme.colorScheme.onBackground
         )
 
         Spacer(modifier = Modifier.height(10.dp))
@@ -483,7 +416,8 @@ private fun GenderRadioButtonGroupComposable(title: String, radioOptions: List<S
             .fillMaxWidth(),
         fontFamily = SFPro,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 17.sp
+        fontSize = 17.sp,
+        color = MaterialTheme.colorScheme.onBackground
     )
 
     Row(
@@ -514,7 +448,8 @@ private fun GenderRadioButtonGroupComposable(title: String, radioOptions: List<S
                 )
                 Text(
                     text = label,
-                    modifier = Modifier.padding(top = 13.dp)
+                    modifier = Modifier.padding(top = 13.dp),
+                    color = MaterialTheme.colorScheme.onBackground
                 )
             }
         }

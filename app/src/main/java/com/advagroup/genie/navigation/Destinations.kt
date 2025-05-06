@@ -6,4 +6,7 @@ sealed class Destinations(val route: String) {
     object SignUpScreen : Destinations("SignUpScreen")
     object EmergencyContactInformationScreen : Destinations("EmergencyContactInformationScreen")
     object CareGiverInformationScreen : Destinations("CareGiverInformationScreen")
+    object HealthConditionScreen: Destinations("HealthConditionScreen")
+    object MedicationScreen: Destinations("MedicationScreen")
+    object AddMedicationScreen: Destinations("AddMedicationScreen")
 }

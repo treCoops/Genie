@@ -1,4 +1,4 @@
-package com.advagroup.genie.views.reusableComposables
+package com.advagroup.genie.views.reusableComposables.textFields
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -24,10 +24,11 @@ import com.advagroup.genie.ui.theme.EditTextBackgroundColor
 import com.advagroup.genie.ui.theme.SFPro
 
 @Composable
-fun DefaultTextField(
+fun DefaultTextFieldWithLeadingIcon(
     value: String,
     onValueChange: (String) -> Unit,
     placeholder: String = "",
+    icon: ImageVector,
     keyboardOptions: KeyboardOptions,
     keyboardActions: KeyboardActions,
     visualTransformation: VisualTransformation,
@@ -47,6 +48,15 @@ fun DefaultTextField(
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 17.sp
             )
+        },
+        leadingIcon = {
+           Icon(
+               imageVector = icon,
+               contentDescription = "Person Icon",
+               tint = MaterialTheme.colorScheme.onSurfaceVariant,
+               modifier = Modifier
+                   .size(25.dp)
+           )
         },
         textStyle = TextStyle(
             fontFamily = SFPro,

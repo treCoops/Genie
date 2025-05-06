@@ -12,7 +12,7 @@ val DarkTextMainColor = Color(0xFFFFFFFF)
 val LightPrimary = Color(0xFFE8871E)
 val LightOnPrimary = Color(0xFFFFFFFF)
 val LightBackground = Color(0xFFFFFFFF)
-val LightTextMainColor = Color(0xFF3A3B3E)
+val LightTextMainColor = Color(0xFF3A3B3E) //Red for Check 0xFFFA3B3E ----> // Default 0xFF3A3B3E
 
 //Common Colors
 val LightGreenColor = Color(0xFFBAD4AA)

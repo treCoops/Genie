@@ -39,7 +39,7 @@ private val LightColorScheme = lightColorScheme(
 @Composable
 fun GenieTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    //darkTheme: Boolean = true,
+    //darkTheme: Boolean = false,
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = false,
     content: @Composable () -> Unit

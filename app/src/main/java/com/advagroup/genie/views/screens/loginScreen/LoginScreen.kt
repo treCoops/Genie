@@ -37,7 +37,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -52,8 +51,8 @@ import com.advagroup.genie.R
 import com.advagroup.genie.navigation.Destinations
 import com.advagroup.genie.ui.theme.SFPro
 import com.advagroup.genie.ui.theme.SecondaryColor
-import com.advagroup.genie.views.reusableComposables.DefaultFormButtonWithFill
-import com.advagroup.genie.views.reusableComposables.DefaultTextFieldWithLeadingIcon
+import com.advagroup.genie.views.reusableComposables.buttons.DefaultFormButtonWithFill
+import com.advagroup.genie.views.reusableComposables.textFields.DefaultTextFieldWithLeadingIcon
 
 @Composable
 fun LoginScreen(navController: NavController) {

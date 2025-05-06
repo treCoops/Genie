@@ -34,10 +34,10 @@ import androidx.navigation.NavController
 import com.advagroup.genie.R
 import com.advagroup.genie.navigation.Destinations
 import com.advagroup.genie.ui.theme.SFPro
-import com.advagroup.genie.views.reusableComposables.DefaultFormButtonWithFill
-import com.advagroup.genie.views.reusableComposables.DefaultFormButtonWithoutFill
-import com.advagroup.genie.views.reusableComposables.DefaultNavigationTopBarWithIcon
-import com.advagroup.genie.views.reusableComposables.DefaultTextField
+import com.advagroup.genie.views.reusableComposables.buttons.DefaultFormButtonWithFill
+import com.advagroup.genie.views.reusableComposables.buttons.DefaultFormButtonWithoutFill
+import com.advagroup.genie.views.reusableComposables.titleBar.DefaultNavigationTopBarWithIcon
+import com.advagroup.genie.views.reusableComposables.textFields.DefaultTextField
 
 @Composable
 fun EmergencyContactInformationScreen(navController: NavController) {
@@ -102,7 +102,8 @@ private fun ContentView(navController: NavController) {
                 .padding(top = 20.dp),
             fontFamily = SFPro,
             fontWeight = FontWeight.SemiBold,
-            fontSize = 28.sp
+            fontSize = 28.sp,
+            color = MaterialTheme.colorScheme.onBackground
         )
 
         Spacer(modifier = Modifier.height(30.dp))
@@ -189,7 +190,8 @@ private fun TextFieldComposable(value: String, onValueChange: (String) -> Unit, 
                 .fillMaxWidth(),
             fontFamily = SFPro,
             fontWeight = FontWeight.SemiBold,
-            fontSize = 17.sp
+            fontSize = 17.sp,
+            color = MaterialTheme.colorScheme.onBackground
         )
 
         Spacer(modifier = Modifier.height(10.dp))

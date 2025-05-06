@@ -36,8 +36,8 @@ import com.advagroup.genie.navigation.Destinations
 import com.advagroup.genie.ui.theme.DefaultGrayDark
 import com.advagroup.genie.ui.theme.LightGreenColor
 import com.advagroup.genie.ui.theme.SFPro
-import com.advagroup.genie.views.reusableComposables.DefaultFormButtonWithFill
-import com.advagroup.genie.views.reusableComposables.DefaultFormButtonWithoutFill
+import com.advagroup.genie.views.reusableComposables.buttons.DefaultFormButtonWithFill
+import com.advagroup.genie.views.reusableComposables.buttons.DefaultFormButtonWithoutFill
 
 @Composable
 fun WelcomeScreen(navController: NavController) {
