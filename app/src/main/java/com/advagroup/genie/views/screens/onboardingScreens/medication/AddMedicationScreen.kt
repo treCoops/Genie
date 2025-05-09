@@ -1,4 +1,4 @@
-package com.advagroup.genie.views.screens.onboarding
+package com.advagroup.genie.views.screens.onboardingScreens.medication
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -100,7 +100,7 @@ private fun MainView(navController: NavController) {
             onIconPressed = {
                 navController.popBackStack()
             },
-            headingTitle = stringResource(R.string.add_medication),
+            headingTitle = stringResource(R.string.add_medication_heading),
             modifier = Modifier
                 .size(30.dp)
         )
@@ -251,8 +251,8 @@ private fun ContentView(navController: NavController) {
             onValueChange = {
                 medicineDosage = it
             },
-            stringResource(R.string.medication_name),
-            stringResource(R.string.enter_medication_name_placeholder),
+            stringResource(R.string.medication_dosage_full),
+            stringResource(R.string.enter_medication_dosage_placeholder),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Next

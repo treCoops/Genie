@@ -9,4 +9,13 @@ sealed class Destinations(val route: String) {
     object HealthConditionScreen: Destinations("HealthConditionScreen")
     object MedicationScreen: Destinations("MedicationScreen")
     object AddMedicationScreen: Destinations("AddMedicationScreen")
+    object ReminderScreen: Destinations("ReminderScreen")
+    object AddReminderScreen: Destinations("AddReminderScreen")
+
+    object MainScreen: Destinations("MainScreen")
+    object HomeScreen: Destinations("HomeScreen")
+    object SettingsScreen: Destinations("SettingsScreen")
+    object ProfileScreen: Destinations("ProfileScreen")
+    object FamilyScreen: Destinations("FamilyScreen")
+    object AddFamilyMemberScreen: Destinations("AddFamilyMemberScreen")
 }

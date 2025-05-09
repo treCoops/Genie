@@ -16,13 +16,18 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.advagroup.genie.navigation.Destinations
 import com.advagroup.genie.ui.theme.GenieTheme
+import com.advagroup.genie.views.bottomNavigation.MainScreen
 import com.advagroup.genie.views.screens.loginScreen.LoginScreen
-import com.advagroup.genie.views.screens.onboarding.AddMedicationScreen
-import com.advagroup.genie.views.screens.onboarding.CareGiverInformationScreen
-import com.advagroup.genie.views.screens.onboarding.EmergencyContactInformationScreen
-import com.advagroup.genie.views.screens.onboarding.HealthConditionScreen
-import com.advagroup.genie.views.screens.onboarding.MedicationScreen
-import com.advagroup.genie.views.screens.onboarding.SignUpScreen
+import com.advagroup.genie.views.screens.onboardingScreens.familyMember.AddFamilyMemberScreen
+import com.advagroup.genie.views.screens.onboardingScreens.medication.AddMedicationScreen
+import com.advagroup.genie.views.screens.onboardingScreens.CareGiverInformationScreen
+import com.advagroup.genie.views.screens.onboardingScreens.EmergencyContactInformationScreen
+import com.advagroup.genie.views.screens.onboardingScreens.familyMember.FamilyScreen
+import com.advagroup.genie.views.screens.onboardingScreens.HealthConditionScreen
+import com.advagroup.genie.views.screens.onboardingScreens.medication.MedicationScreen
+import com.advagroup.genie.views.screens.onboardingScreens.SignUpScreen
+import com.advagroup.genie.views.screens.onboardingScreens.reminder.AddReminderScreen
+import com.advagroup.genie.views.screens.onboardingScreens.reminder.ReminderScreen
 import com.advagroup.genie.views.screens.welcomeScreen.WelcomeScreen
 import kotlinx.coroutines.launch
 
@@ -91,6 +96,26 @@ fun DisplayNav(modifier: Modifier) {
 
         composable(route = Destinations.AddMedicationScreen.route) {
             AddMedicationScreen(navController)
+        }
+
+        composable(route = Destinations.FamilyScreen.route) {
+            FamilyScreen(navController)
+        }
+
+        composable(route = Destinations.AddFamilyMemberScreen.route) {
+            AddFamilyMemberScreen(navController)
+        }
+
+        composable(route = Destinations.ReminderScreen.route) {
+            ReminderScreen(navController)
+        }
+
+        composable(route = Destinations.AddReminderScreen.route) {
+            AddReminderScreen(navController)
+        }
+
+        composable(route = Destinations.MainScreen.route) {
+            MainScreen(navController)
         }
     }
 }

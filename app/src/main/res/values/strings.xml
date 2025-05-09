@@ -55,11 +55,40 @@
     <string name="medication_frequency">Frequency</string>
     <string name="medication_type">Type</string>
     <string name="add_medication">Add medication</string>
+    <string name="add_reminder">Add reminder</string>
+    <string name="add_reminder_heading">Add Reminder</string>
+    <string name="add_medication_heading">Add Medication</string>
+    <string name="add_member">Add member</string>
+    <string name="add_member_heading">Add Member</string>
     <string name="medication_details">Medication details</string>
     <string name="medication_type_full">Medication type</string>
+    <string name="relationship_type_full">Relationship</string>
     <string name="enter_medication_name_placeholder">Enter medication name</string>
     <string name="select_medication_type">Select the medication type</string>
+    <string name="select_relationship_type">Select the relationship</string>
     <string name="medication_take">Medication Take</string>
     <string name="medication_frequency_full">Medication Frequency</string>
+    <string name="medication_dosage_full">Medication Dosage</string>
+    <string name="enter_medication_dosage_placeholder">Enter medication dosage</string>
     <string name="select_the_time">Select the time</string>
+    <string name="family_info">Family Info</string>
+    <string name="family_member_details">Member Details</string>
+    <string name="reminder_details">Reminder Details</string>
+    <string name="family_member_name_enter">Name of the Family Member</string>
+    <string name="reminder_name_enter">Name of the Reminder</string>
+    <string name="reminder_name_enter_placeholder">Enter the reminder name</string>
+    <string name="member_name_and_relationship">%1$s (%2$s)</string>
+    <string name="reminder_info">Reminder Info</string>
+    <string name="reminder_days_heading">Day(s)</string>
+
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="time">Time</string>
+
+
+    <string name="nav_item_home_title">Home</string>
+    <string name="nav_item_profile_title">Profile</string>
+    <string name="nav_item_settings_title">Settings</string>
+
+
 </resources>

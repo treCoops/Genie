@@ -1,4 +1,4 @@
-package com.advagroup.genie.views.screens.onboarding
+package com.advagroup.genie.views.screens.onboardingScreens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource

@@ -1,4 +1,4 @@
-package com.advagroup.genie.views.screens.onboarding
+package com.advagroup.genie.views.screens.onboardingScreens.familyMember
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -17,14 +17,19 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.res.stringResource
@@ -33,17 +38,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.advagroup.genie.R
-import com.advagroup.genie.dataModels.uiData.MedicationModel
+import com.advagroup.genie.dataModels.uiData.FamilyModel
 import com.advagroup.genie.navigation.Destinations
 import com.advagroup.genie.ui.theme.LightGreenColor
 import com.advagroup.genie.ui.theme.SFPro
 import com.advagroup.genie.views.reusableComposables.buttons.DefaultFormButtonWithFill
 import com.advagroup.genie.views.reusableComposables.buttons.DefaultFormButtonWithoutFill
 import com.advagroup.genie.views.reusableComposables.buttons.DefaultFormButtonWithoutFillWithLeadingIcon
+import com.advagroup.genie.views.reusableComposables.buttons.DefaultNavigationCircleButton
+import com.advagroup.genie.views.reusableComposables.textGroups.ListItemTextGroupComposable
 import com.advagroup.genie.views.reusableComposables.titleBar.DefaultNavigationTopBarWithIcon
 
 @Composable
-fun MedicationScreen(navController: NavController) {
+fun FamilyScreen(navController: NavController) {
 
     Surface(
         modifier = Modifier
@@ -90,7 +97,7 @@ private fun ContentView(navController: NavController) {
             .verticalScroll(scrollState)
     ) {
         Text(
-            text = stringResource(R.string.current_medications),
+            text = stringResource(R.string.family_info),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 20.dp),
@@ -113,9 +120,13 @@ private fun ContentView(navController: NavController) {
                     .height(400.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                val dataSet = getCurrentMedicationsList()
+                val dataSet = getCurrentFamilyList()
                 items(dataSet.size){
-                    MedicationItemComposable(dataSet[it])
+                    FamilyItemComposable(
+                        dataSet[it],
+                        onPressed = {},
+                        onDeleted = {}
+                    )
                 }
             }
 
@@ -124,11 +135,11 @@ private fun ContentView(navController: NavController) {
         Spacer(modifier = Modifier.height(30.dp))
 
         DefaultFormButtonWithoutFillWithLeadingIcon(
-            title = stringResource(R.string.add_medication),
+            title = stringResource(R.string.add_member),
             iconVector = Icons.Filled.Add,
             paddingValues = PaddingValues()
         ) {
-            navController.navigate(Destinations.AddMedicationScreen.route)
+            navController.navigate(Destinations.AddFamilyMemberScreen.route)
         }
 
         Spacer(modifier = Modifier.height(60.dp))
@@ -137,7 +148,7 @@ private fun ContentView(navController: NavController) {
             title = "Next",
             paddingValues = PaddingValues()
         ) {
-
+            navController.navigate(Destinations.ReminderScreen.route)
         }
 
         Spacer(modifier = Modifier.height(15.dp))
@@ -146,15 +157,16 @@ private fun ContentView(navController: NavController) {
             "Skip",
             paddingValues = PaddingValues()
         ) {
-
+            navController.navigate(Destinations.ReminderScreen.route)
         }
 
         Spacer(modifier = Modifier.height(30.dp))
+
     }
 }
 
 @Composable
-fun MedicationItemComposable(dataSet: MedicationModel) {
+private fun FamilyItemComposable(dataSet: FamilyModel, onPressed: () -> Unit, onDeleted: () -> Unit) {
 
     Card(
         shape = RoundedCornerShape(20.dp),
@@ -170,10 +182,22 @@ fun MedicationItemComposable(dataSet: MedicationModel) {
                 .fillMaxSize()
                 .padding(20.dp)
         ) {
-            MedicationTextGroupComposable(
-                title = stringResource(R.string.medication_name),
-                value = dataSet.medicationName
-            )
+
+            Box(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                ListItemTextGroupComposable(
+                    title = stringResource(R.string.name),
+                    value = stringResource(R.string.member_name_and_relationship, dataSet.name, dataSet.relationship)
+                )
+
+                DefaultNavigationCircleButton(
+                    onClick = onPressed,
+                    iconVector = Icons.AutoMirrored.Filled.ArrowForward,
+                    iconModifier = Modifier.size(30.dp),
+                    modifier = Modifier.align(Alignment.CenterEnd)
+                )
+            }
 
             Spacer(modifier = Modifier.height(10.dp))
 
@@ -187,75 +211,58 @@ fun MedicationItemComposable(dataSet: MedicationModel) {
 
             Spacer(modifier = Modifier.height(15.dp))
 
-            MedicationTextGroupComposable(
-                title = stringResource(R.string.medication_take_and_dosage),
-                value = stringResource(R.string.medication_take_and_dosage_value, dataSet.medicationTake, dataSet.medicationDosage)
+            ListItemTextGroupComposable(
+                title = stringResource(R.string.email),
+                value = dataSet.email
             )
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            MedicationTextGroupComposable(
-                title = stringResource(R.string.medication_frequency),
-                value = dataSet.medicationFrequency
-            )
+            Box(
+                modifier = Modifier.fillMaxWidth()
+            ) {
 
-            Spacer(modifier = Modifier.height(10.dp))
+                ListItemTextGroupComposable(
+                    title = stringResource(R.string.phone_number),
+                    value = dataSet.phoneNo
+                )
 
-            MedicationTextGroupComposable(
-                title = stringResource(R.string.medication_type),
-                value = dataSet.medicationType
-            )
+                IconButton(
+                    onClick = onDeleted,
+                    modifier = Modifier.align(Alignment.BottomEnd)
+                ) {
+                    Icon(
+                        Icons.Filled.Delete,
+                        "Delete Icon",
+                        modifier = Modifier.size(30.dp),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
         }
     }
+
 }
 
-@Composable
-fun MedicationTextGroupComposable(title: String, value: String) {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(5.dp)
-    ) {
-        Text(
-            text = title,
-            fontFamily = SFPro,
-            fontWeight = FontWeight.SemiBold,
-            fontSize = 14.sp,
-            color = MaterialTheme.colorScheme.onBackground
-        )
-
-        Text(
-            text = value,
-            fontFamily = SFPro,
-            fontWeight = FontWeight.SemiBold,
-            fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier
-                .padding(start = 10.dp)
-        )
-    }
-}
-
-fun getCurrentMedicationsList(): List<MedicationModel> {
+fun getCurrentFamilyList(): List<FamilyModel> {
     return listOf(
-        MedicationModel(
-            "Amlodipine",
-            "Syrup",
-            "After the meal",
-            "Morning, Night",
-            "10ml"
+        FamilyModel(
+            "Hishara",
+            "Grandparent",
+            "hishara@gmail.com",
+            "+61233423431"
         ),
-        MedicationModel(
-            "Lisinopril",
-            "Tablets",
-            "After the meal",
-            "Morning",
-            "2 tablets"
+        FamilyModel(
+            "Tharindu",
+            "Brother",
+            "tharindu@gmail.com",
+            "+61237657689"
         ),
-        MedicationModel(
-            "Metformin",
-            "Tablets",
-            "Before the meal",
-            "Evening",
-            "1 tablet"
+        FamilyModel(
+            "Kalani",
+            "Sister",
+            "kalani@gmail.com",
+            "+94768764562"
         )
     )
 }

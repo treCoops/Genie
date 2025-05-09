@@ -1,4 +1,4 @@
-package com.advagroup.genie.views.screens.onboarding
+package com.advagroup.genie.views.screens.onboardingScreens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -40,7 +40,7 @@ import com.advagroup.genie.views.reusableComposables.titleBar.DefaultNavigationT
 import com.advagroup.genie.views.reusableComposables.textFields.DefaultTextField
 
 @Composable
-fun EmergencyContactInformationScreen(navController: NavController) {
+fun CareGiverInformationScreen(navController: NavController) {
 
     Surface(
         modifier = Modifier
@@ -89,6 +89,7 @@ private fun ContentView(navController: NavController) {
         mutableStateOf("")
     }
 
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -96,7 +97,7 @@ private fun ContentView(navController: NavController) {
             .verticalScroll(scrollState)
     ) {
         Text(
-            text = stringResource(R.string.emergency_contact_info),
+            text = stringResource(R.string.caregiver_info),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 20.dp),
@@ -113,7 +114,7 @@ private fun ContentView(navController: NavController) {
             onValueChange = {
                 personName = it
             },
-            stringResource(R.string.emergency_person_name),
+            stringResource(R.string.caregiver_name),
             stringResource(R.string.enter_name_placeholder),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Text,
@@ -155,21 +156,19 @@ private fun ContentView(navController: NavController) {
 
         DefaultFormButtonWithFill(
             title = "Next",
-            paddingValues = PaddingValues(),
-            {
-                navController.navigate(Destinations.CareGiverInformationScreen.route)
-            }
-        )
+            paddingValues = PaddingValues()
+        ) {
+            navController.navigate(Destinations.HealthConditionScreen.route)
+        }
 
         Spacer(modifier = Modifier.height(15.dp))
 
         DefaultFormButtonWithoutFill(
             "Skip",
-            paddingValues = PaddingValues(),
-            {
-                navController.navigate(Destinations.CareGiverInformationScreen.route)
-            }
-        )
+            paddingValues = PaddingValues()
+        ) {
+            navController.navigate(Destinations.HealthConditionScreen.route)
+        }
 
         Spacer(modifier = Modifier.height(50.dp))
 
