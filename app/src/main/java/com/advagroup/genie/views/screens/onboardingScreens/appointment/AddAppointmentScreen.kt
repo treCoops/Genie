@@ -1,7 +1,6 @@
-package com.advagroup.genie.views.screens.onboardingScreens.reminder
+package com.advagroup.genie.views.screens.onboardingScreens.appointment
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -20,13 +18,16 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
@@ -43,19 +44,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.advagroup.genie.R
+import com.advagroup.genie.helpers.convertTimeMillisLongToString
 import com.advagroup.genie.helpers.get12HoursTime
 import com.advagroup.genie.ui.theme.EditTextBackgroundColor
 import com.advagroup.genie.ui.theme.SFPro
 import com.advagroup.genie.views.reusableComposables.buttons.DefaultFormButtonWithFill
 import com.advagroup.genie.views.reusableComposables.buttons.DefaultFormButtonWithoutFill
-import com.advagroup.genie.views.reusableComposables.buttons.ReminderDateButton
+import com.advagroup.genie.views.reusableComposables.pickers.CalenderDatePickerDialog
 import com.advagroup.genie.views.reusableComposables.pickers.TimePickerDialog
 import com.advagroup.genie.views.reusableComposables.textFields.DefaultTextField
 import com.advagroup.genie.views.reusableComposables.titleBar.DefaultNavigationTopBarWithIcon
 import java.util.Calendar
 
 @Composable
-fun AddReminderScreen(navController: NavController) {
+fun AddAppointmentScreen(navController: NavController) {
+
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -63,6 +66,7 @@ fun AddReminderScreen(navController: NavController) {
     ) {
         MainView(navController)
     }
+
 }
 
 @Composable
@@ -78,7 +82,7 @@ private fun MainView(navController: NavController) {
             onIconPressed = {
                 navController.popBackStack()
             },
-            headingTitle = stringResource(R.string.add_reminder_heading),
+            headingTitle = stringResource(R.string.add_appointment_heading),
             modifier = Modifier
                 .size(30.dp)
         )
@@ -92,23 +96,29 @@ private fun ContentView(navController: NavController) {
 
     val scrollState = rememberScrollState()
 
-    val daysList = listOf<String>(
-        "Sun",
-        "Mon",
-        "Tue",
-        "Wed",
-        "Thu",
-        "Fri",
-        "Sat",
-    )
-    val checkedDates = remember { mutableStateMapOf<String, Boolean>() }
-
-    var reminderName by remember {
+    var appointmentName by remember {
         mutableStateOf("")
     }
 
-    var showTimePicker by remember { mutableStateOf(false) }
-    var reminderTime by remember { mutableStateOf("") }
+    var appointmentLocation by remember {
+        mutableStateOf("")
+    }
+
+    var date by remember {
+        mutableStateOf("")
+    }
+
+    var showDatePicker by remember {
+        mutableStateOf(false)
+    }
+
+    var reminderTime by remember {
+        mutableStateOf("")
+    }
+
+    var showTimePicker by remember {
+        mutableStateOf(false)
+    }
 
     Column(
         modifier = Modifier
@@ -118,7 +128,7 @@ private fun ContentView(navController: NavController) {
     ) {
 
         Text(
-            text = stringResource(R.string.reminder_details),
+            text = stringResource(R.string.appointment_details),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 20.dp),
@@ -131,12 +141,12 @@ private fun ContentView(navController: NavController) {
         Spacer(modifier = Modifier.height(30.dp))
 
         TextFieldComposable(
-            value = reminderName,
+            value = appointmentName,
             onValueChange = {
-                reminderName = it
+                appointmentName = it
             },
-            stringResource(R.string.reminder_name_enter),
-            stringResource(R.string.reminder_name_enter_placeholder),
+            stringResource(R.string.appointment_name_enter),
+            stringResource(R.string.appointment_name_enter_placeholder),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Next
@@ -145,41 +155,48 @@ private fun ContentView(navController: NavController) {
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        Text(
-            text = stringResource(R.string.reminder_days_heading),
-            modifier = Modifier
-                .fillMaxWidth(),
-            fontFamily = SFPro,
-            fontWeight = FontWeight.SemiBold,
-            fontSize = 17.sp,
-            color = MaterialTheme.colorScheme.onBackground
+        TextFieldComposable(
+            value = appointmentLocation,
+            onValueChange = {
+                appointmentLocation = it
+            },
+            stringResource(R.string.appointment_location_enter),
+            stringResource(R.string.appointment_location_enter_placeholder),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Next
+            )
         )
 
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
-        LazyRow(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(6.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-
-            items(daysList.size){ index ->
-                ReminderDateButton(
-                    daysList[index],
-                    checkedDates,
-                    Modifier.fillMaxWidth(),
-                    onClick = {}
-                )
+        DateComposable(
+            title = stringResource(R.string.appointment_date_enter),
+            value = date,
+            onClicked = {
+                showDatePicker = true
             }
+        )
 
+        if (showDatePicker) {
+            DatePickerComposable(
+                onDateSelected = { selectedDate ->
+                    selectedDate?.let {
+                        date = it.convertTimeMillisLongToString("dd MMM yyyy")
+                    }
+
+                    showDatePicker = false
+                },
+                onDismiss = {
+                    showDatePicker = false
+                }
+            )
         }
 
         Spacer(modifier = Modifier.height(30.dp))
 
         Text(
-            text = stringResource(R.string.time),
+            text = stringResource(R.string.appointment_time_enter),
             modifier = Modifier
                 .fillMaxWidth(),
             fontFamily = SFPro,
@@ -228,6 +245,7 @@ private fun ContentView(navController: NavController) {
         }
 
         Spacer(modifier = Modifier.height(50.dp))
+
     }
 
 }
@@ -268,13 +286,13 @@ private fun ReminderTimeComposable(value: String, onClicked: () -> Unit) {
         ) {
 
             if(value == ""){
-                TimeTextComposable(
-                    value = stringResource(R.string.select_the_time),
+                SpecificTextComposable(
+                    value = stringResource(R.string.appointment_time_enter_placeholder),
                     modifier = Modifier
                         .align(Alignment.CenterStart)
                 )
             } else {
-                TimeTextComposable(
+                SpecificTextComposable(
                     value = value,
                     modifier = Modifier
                         .align(Alignment.CenterStart),
@@ -295,7 +313,7 @@ private fun ReminderTimeComposable(value: String, onClicked: () -> Unit) {
 }
 
 @Composable
-private fun TimeTextComposable(value: String, modifier: Modifier, color: Color = MaterialTheme.colorScheme.onSurfaceVariant){
+private fun SpecificTextComposable(value: String, modifier: Modifier, color: Color = MaterialTheme.colorScheme.onSurfaceVariant){
     Text(
         text = value,
         color = color,
@@ -305,6 +323,105 @@ private fun TimeTextComposable(value: String, modifier: Modifier, color: Color =
         textAlign = TextAlign.Start,
         modifier = modifier
     )
+}
+
+@Composable
+private fun DateComposable(title: String, value: String, onClicked: () -> Unit) {
+
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+
+        Text(
+            text = title,
+            modifier = Modifier
+                .fillMaxWidth(),
+            fontFamily = SFPro,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 17.sp,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Button(
+            onClick = onClicked,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(70.dp),
+            colors = ButtonDefaults.buttonColors(
+                EditTextBackgroundColor,
+                contentColor = MaterialTheme.colorScheme.onBackground
+            ),
+            shape = RoundedCornerShape(18.dp),
+            contentPadding = PaddingValues(0.dp)
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 15.dp)
+            ) {
+
+                if(value == ""){
+                    DateTextComposable(
+                        value = stringResource(R.string.appointment_date_enter_placeholder),
+                        modifier = Modifier
+                            .align(Alignment.CenterStart)
+                    )
+                } else {
+                    DateTextComposable(
+                        value = value,
+                        modifier = Modifier
+                            .align(Alignment.CenterStart),
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+                }
+
+                Icon(
+                    imageVector = Icons.Filled.DateRange,
+                    contentDescription = "Date Icon",
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier
+                        .size(25.dp)
+                        .align(Alignment.CenterEnd)
+                )
+            }
+
+        }
+
+    }
+}
+
+@Composable
+private fun DateTextComposable(value: String, modifier: Modifier, color: Color = MaterialTheme.colorScheme.onSurfaceVariant){
+    Text(
+        text = value,
+        color = color,
+        fontFamily = SFPro,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 17.sp,
+        textAlign = TextAlign.Start,
+        modifier = modifier
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun DatePickerComposable(onDateSelected: (Long?) -> Unit, onDismiss: () -> Unit) {
+    val calendar = Calendar.getInstance()
+    val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+    val currentTimeMillis = calendar.timeInMillis
+
+    val datePickerState = rememberDatePickerState(
+        yearRange = currentYear..2050,
+        selectableDates = object : SelectableDates {
+            override fun isSelectableDate(utcTimeMillis: Long): Boolean {
+                return utcTimeMillis >= currentTimeMillis
+            }
+        }
+    )
+
+    CalenderDatePickerDialog(stringResource(R.string.appointment_date_enter_placeholder), datePickerState, onDateSelected, onDismiss)
 }
 
 @Composable

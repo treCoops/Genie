@@ -26,6 +26,10 @@ import com.advagroup.genie.views.screens.onboardingScreens.familyMember.FamilySc
 import com.advagroup.genie.views.screens.onboardingScreens.HealthConditionScreen
 import com.advagroup.genie.views.screens.onboardingScreens.medication.MedicationScreen
 import com.advagroup.genie.views.screens.onboardingScreens.SignUpScreen
+import com.advagroup.genie.views.screens.onboardingScreens.appointment.AddAppointmentScreen
+import com.advagroup.genie.views.screens.onboardingScreens.appointment.AppointmentScreen
+import com.advagroup.genie.views.screens.onboardingScreens.interest.AddInterestScreen
+import com.advagroup.genie.views.screens.onboardingScreens.interest.InterestScreen
 import com.advagroup.genie.views.screens.onboardingScreens.reminder.AddReminderScreen
 import com.advagroup.genie.views.screens.onboardingScreens.reminder.ReminderScreen
 import com.advagroup.genie.views.screens.welcomeScreen.WelcomeScreen
@@ -112,6 +116,22 @@ fun DisplayNav(modifier: Modifier) {
 
         composable(route = Destinations.AddReminderScreen.route) {
             AddReminderScreen(navController)
+        }
+
+        composable(route = Destinations.InterestScreen.route) {
+            InterestScreen(navController)
+        }
+
+        composable(route = Destinations.AddInterestScreen.route) {
+            AddInterestScreen(navController)
+        }
+
+        composable(route = Destinations.AppointmentScreen.route) {
+            AppointmentScreen(navController)
+        }
+
+        composable(route = Destinations.AddAppointmentScreen.route) {
+            AddAppointmentScreen(navController)
         }
 
         composable(route = Destinations.MainScreen.route) {

@@ -1,4 +1,4 @@
-package com.advagroup.genie.views.screens.onboardingScreens.reminder
+package com.advagroup.genie.views.screens.onboardingScreens.interest
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.advagroup.genie.R
-import com.advagroup.genie.dataModels.uiData.ReminderModel
+import com.advagroup.genie.dataModels.uiData.InterestModel
 import com.advagroup.genie.navigation.Destinations
 import com.advagroup.genie.ui.theme.LightGreenColor
 import com.advagroup.genie.ui.theme.SFPro
@@ -46,11 +46,12 @@ import com.advagroup.genie.views.reusableComposables.buttons.DefaultFormButtonWi
 import com.advagroup.genie.views.reusableComposables.buttons.DefaultFormButtonWithoutFill
 import com.advagroup.genie.views.reusableComposables.buttons.DefaultFormButtonWithoutFillWithLeadingIcon
 import com.advagroup.genie.views.reusableComposables.buttons.DefaultNavigationCircleButton
+import com.advagroup.genie.views.reusableComposables.textGroups.ListItemMultiLineTextGroupComposable
 import com.advagroup.genie.views.reusableComposables.textGroups.ListItemTextGroupComposable
 import com.advagroup.genie.views.reusableComposables.titleBar.DefaultNavigationTopBarWithIcon
 
 @Composable
-fun ReminderScreen(navController: NavController) {
+fun InterestScreen(navController: NavController) {
 
     Surface(
         modifier = Modifier
@@ -60,7 +61,9 @@ fun ReminderScreen(navController: NavController) {
         MainView(navController)
     }
 
+
 }
+
 
 @Composable
 private fun MainView(navController: NavController) {
@@ -98,7 +101,7 @@ private fun ContentView(navController: NavController) {
     ) {
 
         Text(
-            text = stringResource(R.string.reminder_info),
+            text = stringResource(R.string.interest_info),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 20.dp),
@@ -115,18 +118,17 @@ private fun ContentView(navController: NavController) {
                 .fillMaxWidth()
                 .clipToBounds()
         ) {
-
             LazyColumn(
                 modifier = Modifier
-                    .height(400.dp),
+                    .height(350.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                val dataSet = getCurrentReminderList()
+                val dataSet = getCurrentInterestList()
                 items(dataSet.size){
-                    ReminderItemComposable(
+                    InterestItemComposable(
                         dataSet[it],
-                        onPressed = {},
-                        onDeleted = {}
+                        onDeleted = {},
+                        onPressed = {}
                     )
                 }
             }
@@ -135,11 +137,11 @@ private fun ContentView(navController: NavController) {
         Spacer(modifier = Modifier.height(30.dp))
 
         DefaultFormButtonWithoutFillWithLeadingIcon(
-            title = stringResource(R.string.add_reminder),
+            title = stringResource(R.string.add_interest),
             iconVector = Icons.Filled.Add,
             paddingValues = PaddingValues()
         ) {
-            navController.navigate(Destinations.AddReminderScreen.route)
+            navController.navigate(Destinations.AddInterestScreen.route)
         }
 
         Spacer(modifier = Modifier.height(60.dp))
@@ -148,7 +150,7 @@ private fun ContentView(navController: NavController) {
             title = "Next",
             paddingValues = PaddingValues()
         ) {
-            navController.navigate(Destinations.InterestScreen.route)
+            navController.navigate(Destinations.AppointmentScreen.route)
         }
 
         Spacer(modifier = Modifier.height(15.dp))
@@ -157,7 +159,7 @@ private fun ContentView(navController: NavController) {
             "Skip",
             paddingValues = PaddingValues()
         ) {
-            navController.navigate(Destinations.InterestScreen.route)
+            navController.navigate(Destinations.AppointmentScreen.route)
         }
 
         Spacer(modifier = Modifier.height(30.dp))
@@ -167,7 +169,7 @@ private fun ContentView(navController: NavController) {
 }
 
 @Composable
-private fun ReminderItemComposable(dataSet: ReminderModel, onPressed: () -> Unit, onDeleted: () -> Unit) {
+private fun InterestItemComposable(dataSet: InterestModel, onPressed: () -> Unit, onDeleted: () -> Unit) {
     Card(
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
@@ -177,18 +179,18 @@ private fun ReminderItemComposable(dataSet: ReminderModel, onPressed: () -> Unit
         modifier = Modifier
             .padding(bottom = 10.dp)
     ) {
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(20.dp)
         ) {
-
             Box(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 ListItemTextGroupComposable(
                     title = stringResource(R.string.name),
-                    value = dataSet.name
+                    value = dataSet.interestName
                 )
 
                 DefaultNavigationCircleButton(
@@ -211,55 +213,47 @@ private fun ReminderItemComposable(dataSet: ReminderModel, onPressed: () -> Unit
 
             Spacer(modifier = Modifier.height(15.dp))
 
-            ListItemTextGroupComposable(
-                title = stringResource(R.string.reminder_days_heading),
-                value = dataSet.dates
+            ListItemMultiLineTextGroupComposable(
+                title = stringResource(R.string.description),
+                value = dataSet.interestNote
             )
 
-            Spacer(modifier = Modifier.height(10.dp))
-
-            Box(
-                modifier = Modifier.fillMaxWidth()
+            IconButton(
+                onClick = onDeleted,
+                modifier = Modifier
+                    .align(Alignment.End)
             ) {
-
-                ListItemTextGroupComposable(
-                    title = stringResource(R.string.time),
-                    value = dataSet.time
+                Icon(
+                    Icons.Filled.Delete,
+                    "Delete Icon",
+                    modifier = Modifier.size(30.dp)
+                        .padding(),
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-
-                IconButton(
-                    onClick = onDeleted,
-                    modifier = Modifier.align(Alignment.BottomEnd)
-                ) {
-                    Icon(
-                        Icons.Filled.Delete,
-                        "Delete Icon",
-                        modifier = Modifier.size(30.dp),
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
             }
+
         }
+
     }
 }
 
-
-fun getCurrentReminderList(): List<ReminderModel> {
+private fun getCurrentInterestList(): List<InterestModel> {
     return listOf(
-        ReminderModel(
-            "Watch News",
-            "Sun, Mon, Tue",
-            "08:00 PM"
+        InterestModel(
+            "Photography",
+            "I have a keen eye for detail and loves freezing moments in time through my camera lens. Whether it's a busy street or a quiet sunset, I enjoy telling stories through visuals."
         ),
-        ReminderModel(
-            "Check Blood Glucose",
-            "Sun",
-            "10:00 AM"
+        InterestModel(
+            "Traveling",
+            "Wanderlust I drive to discover new places, cultures, and experiences. I find joy in spontaneous road trips, meeting locals, and collecting memories from every journey."
         ),
-        ReminderModel(
-            "Check Blood Pressure",
-            "Fri, Sat",
-            "06:30 PM"
+        InterestModel(
+            "Reading sci-fi novels",
+            "I Fascinated by futuristic worlds and imaginative storytelling, I often escape into sci-fi novels. I enjoy the thrill of exploring alternate realities and complex characters."
+        ),
+        InterestModel(
+            "Playing guitar",
+            "Music is my favorite way to relax. Playing the guitar help me unwind and express himself, whether I am learning a new song or improvising melodies late at night."
         )
     )
 }

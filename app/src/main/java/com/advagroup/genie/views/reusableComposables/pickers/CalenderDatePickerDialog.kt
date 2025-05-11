@@ -19,7 +19,7 @@ import com.advagroup.genie.ui.theme.SFPro
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CalenderDatePickerDialog( datePickerState: DatePickerState, onDateSelected: (Long?) -> Unit, onDismiss: () -> Unit) {
+fun CalenderDatePickerDialog(title: String,  datePickerState: DatePickerState, onDateSelected: (Long?) -> Unit, onDismiss: () -> Unit) {
     DatePickerDialog(
         colors = DatePickerDefaults.colors(
             containerColor = MaterialTheme.colorScheme.background,
@@ -60,7 +60,7 @@ fun CalenderDatePickerDialog( datePickerState: DatePickerState, onDateSelected: 
             state = datePickerState,
             title = {
                 Text(
-                    text = "Select your birthday",
+                    text = title,
                     fontFamily = SFPro,
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 17.sp,

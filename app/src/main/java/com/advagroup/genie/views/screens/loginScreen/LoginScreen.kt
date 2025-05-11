@@ -173,9 +173,10 @@ private fun ContentBackgroundComposable(modifier: Modifier, navController: NavCo
 
             DefaultFormButtonWithFill(
                 title = "Login",
-                paddingValues = PaddingValues(horizontal = 0.dp),
-                { }
-            )
+                paddingValues = PaddingValues(horizontal = 0.dp)
+            ) {
+                navController.navigate(Destinations.MainScreen.route)
+            }
 
             Spacer(modifier = Modifier.height(20.dp))
 

@@ -56,6 +56,10 @@
     <string name="medication_type">Type</string>
     <string name="add_medication">Add medication</string>
     <string name="add_reminder">Add reminder</string>
+    <string name="add_appointment">Add appointment</string>
+    <string name="add_appointment_heading">Add Appointment</string>
+    <string name="add_interest">Add interest</string>
+    <string name="add_interest_heading">Add Interest</string>
     <string name="add_reminder_heading">Add Reminder</string>
     <string name="add_medication_heading">Add Medication</string>
     <string name="add_member">Add member</string>
@@ -74,16 +78,41 @@
     <string name="family_info">Family Info</string>
     <string name="family_member_details">Member Details</string>
     <string name="reminder_details">Reminder Details</string>
+    <string name="appointment_details">Appointment Details</string>
+    <string name="interest_details">Interest Details</string>
     <string name="family_member_name_enter">Name of the Family Member</string>
     <string name="reminder_name_enter">Name of the Reminder</string>
+
+    <string name="appointment_name_enter">Name of the Appointment</string>
+    <string name="appointment_name_enter_placeholder">Enter the appointment name</string>
+    <string name="appointment_location_enter">Appointment Location</string>
+    <string name="appointment_location_enter_placeholder">Enter the appointment location</string>
+    <string name="appointment_date_enter">Appointment Date</string>
+    <string name="appointment_date_enter_placeholder">Select appointment date</string>
+    <string name="appointment_time_enter">Appointment Time</string>
+    <string name="appointment_time_enter_placeholder">Select appointment time</string>
+    <string name="title_select_birthday">"Select your birthday"</string>
+
+
+
+
+    <string name="interest_name_enter">Name of the Interest</string>
+    <string name="interest_note_enter">Description of the Interest</string>
     <string name="reminder_name_enter_placeholder">Enter the reminder name</string>
+    <string name="interest_note_enter_placeholder">Please type description of this interest…</string>
+    <string name="interest_name_enter_placeholder">Enter the interest name</string>
     <string name="member_name_and_relationship">%1$s (%2$s)</string>
     <string name="reminder_info">Reminder Info</string>
+    <string name="appointment_info">Appointment Info</string>
+    <string name="interest_info">Interest Info</string>
     <string name="reminder_days_heading">Day(s)</string>
 
     <string name="name">Name</string>
     <string name="email">Email</string>
     <string name="time">Time</string>
+    <string name="description">Description</string>
+    <string name="location">Location</string>
+    <string name="date">Date</string>
 
 
     <string name="nav_item_home_title">Home</string>

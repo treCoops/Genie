@@ -151,7 +151,7 @@ private fun ContentView(navController: NavController) {
             )
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
         TextFieldComposable(
             value = lastName,
@@ -166,7 +166,7 @@ private fun ContentView(navController: NavController) {
             )
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
         DateOfBirthComposable(
             title = stringResource(R.string.date_of_birth),
@@ -191,7 +191,7 @@ private fun ContentView(navController: NavController) {
             )
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
         GenderRadioButtonGroupComposable(
             title = stringResource(R.string.gender),
@@ -202,7 +202,7 @@ private fun ContentView(navController: NavController) {
             }
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
         TextFieldComposable(
             value = userName,
@@ -217,7 +217,7 @@ private fun ContentView(navController: NavController) {
             )
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
         TextFieldComposable(
             value = password,
@@ -233,7 +233,7 @@ private fun ContentView(navController: NavController) {
             )
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
         TextFieldComposable(
             value = confirmPassword,
@@ -280,7 +280,7 @@ private fun DatePickerComposable(onDateSelected: (Long?) -> Unit, onDismiss: () 
         }
     )
 
-    CalenderDatePickerDialog(datePickerState, onDateSelected, onDismiss)
+    CalenderDatePickerDialog(stringResource(R.string.title_select_birthday), datePickerState, onDateSelected, onDismiss)
 }
 
 @Composable
@@ -381,7 +381,7 @@ private fun DateOfBirthComposable(title: String, value: String, onClicked: () ->
 
                 Icon(
                     imageVector = Icons.Filled.DateRange,
-                    contentDescription = "Person Icon",
+                    contentDescription = "Date Icon",
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier
                         .size(25.dp)

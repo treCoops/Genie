@@ -1,4 +1,4 @@
-package com.advagroup.genie.views.screens.onboardingScreens.reminder
+package com.advagroup.genie.views.screens.onboardingScreens.appointment
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.advagroup.genie.R
-import com.advagroup.genie.dataModels.uiData.ReminderModel
+import com.advagroup.genie.dataModels.uiData.AppointmentModel
 import com.advagroup.genie.navigation.Destinations
 import com.advagroup.genie.ui.theme.LightGreenColor
 import com.advagroup.genie.ui.theme.SFPro
@@ -50,7 +50,7 @@ import com.advagroup.genie.views.reusableComposables.textGroups.ListItemTextGrou
 import com.advagroup.genie.views.reusableComposables.titleBar.DefaultNavigationTopBarWithIcon
 
 @Composable
-fun ReminderScreen(navController: NavController) {
+fun AppointmentScreen(navController: NavController) {
 
     Surface(
         modifier = Modifier
@@ -98,7 +98,7 @@ private fun ContentView(navController: NavController) {
     ) {
 
         Text(
-            text = stringResource(R.string.reminder_info),
+            text = stringResource(R.string.appointment_info),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 20.dp),
@@ -121,9 +121,9 @@ private fun ContentView(navController: NavController) {
                     .height(400.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                val dataSet = getCurrentReminderList()
+                val dataSet = getCurrentAppointmentList()
                 items(dataSet.size){
-                    ReminderItemComposable(
+                    AppointmentItemComposable(
                         dataSet[it],
                         onPressed = {},
                         onDeleted = {}
@@ -135,20 +135,20 @@ private fun ContentView(navController: NavController) {
         Spacer(modifier = Modifier.height(30.dp))
 
         DefaultFormButtonWithoutFillWithLeadingIcon(
-            title = stringResource(R.string.add_reminder),
+            title = stringResource(R.string.add_appointment),
             iconVector = Icons.Filled.Add,
             paddingValues = PaddingValues()
         ) {
-            navController.navigate(Destinations.AddReminderScreen.route)
+            navController.navigate(Destinations.AddAppointmentScreen.route)
         }
 
         Spacer(modifier = Modifier.height(60.dp))
 
         DefaultFormButtonWithFill(
-            title = "Next",
+            title = "Done",
             paddingValues = PaddingValues()
         ) {
-            navController.navigate(Destinations.InterestScreen.route)
+            navController.popBackStack(Destinations.LoginScreen.route, false)
         }
 
         Spacer(modifier = Modifier.height(15.dp))
@@ -157,17 +157,16 @@ private fun ContentView(navController: NavController) {
             "Skip",
             paddingValues = PaddingValues()
         ) {
-            navController.navigate(Destinations.InterestScreen.route)
+            navController.popBackStack(Destinations.LoginScreen.route, false)
         }
 
         Spacer(modifier = Modifier.height(30.dp))
 
     }
-
 }
 
 @Composable
-private fun ReminderItemComposable(dataSet: ReminderModel, onPressed: () -> Unit, onDeleted: () -> Unit) {
+private fun AppointmentItemComposable(dataSet: AppointmentModel, onPressed: () -> Unit, onDeleted: () -> Unit) {
     Card(
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
@@ -212,8 +211,15 @@ private fun ReminderItemComposable(dataSet: ReminderModel, onPressed: () -> Unit
             Spacer(modifier = Modifier.height(15.dp))
 
             ListItemTextGroupComposable(
-                title = stringResource(R.string.reminder_days_heading),
-                value = dataSet.dates
+                title = stringResource(R.string.location),
+                value = dataSet.location
+            )
+
+            Spacer(modifier = Modifier.height(15.dp))
+
+            ListItemTextGroupComposable(
+                title = stringResource(R.string.date),
+                value = dataSet.date
             )
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -243,23 +249,25 @@ private fun ReminderItemComposable(dataSet: ReminderModel, onPressed: () -> Unit
     }
 }
 
-
-fun getCurrentReminderList(): List<ReminderModel> {
+fun getCurrentAppointmentList(): List<AppointmentModel> {
     return listOf(
-        ReminderModel(
-            "Watch News",
-            "Sun, Mon, Tue",
-            "08:00 PM"
+        AppointmentModel(
+            "Physiotherapy",
+            "HealWell Physiotherapy Center",
+            "07 May 2025",
+            "12:45 AM"
         ),
-        ReminderModel(
-            "Check Blood Glucose",
-            "Sun",
-            "10:00 AM"
+        AppointmentModel(
+            "Dental Checkup",
+            "BrightSmile Dental Clinic",
+            "10 May 2025",
+            "09:30 AM"
         ),
-        ReminderModel(
-            "Check Blood Pressure",
-            "Fri, Sat",
-            "06:30 PM"
+        AppointmentModel(
+            "Eye Examination",
+            "VisionCare Eye Hospital",
+            "15 May 2025",
+            "02:00 PM"
         )
     )
 }
