@@ -121,7 +121,7 @@ fun RowScope.AddItem(screen: BottomNavigationItemDataModel, currentDestination: 
 
     Box(
         modifier = Modifier
-            .height(50.dp)
+            .height(55.dp)
             .clip(CircleShape)
             .background(animatedBackgroundColor)
             .clickable(onClick = {
@@ -142,7 +142,7 @@ fun RowScope.AddItem(screen: BottomNavigationItemDataModel, currentDestination: 
                 contentDescription = "icon",
                 tint = animatedContentColor,
                 modifier = Modifier
-                    .size(24.dp)
+                    .size(30.dp)
                     .graphicsLayer {
                         scaleX = scale
                         scaleY = scale
@@ -161,7 +161,7 @@ fun RowScope.AddItem(screen: BottomNavigationItemDataModel, currentDestination: 
                     text = stringResource(screen.title),
                     fontFamily = SFPro,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 17.sp,
+                    fontSize = 19.sp,
                     color = animatedContentColor,
                     modifier = Modifier.padding(start = 4.dp)
                 )

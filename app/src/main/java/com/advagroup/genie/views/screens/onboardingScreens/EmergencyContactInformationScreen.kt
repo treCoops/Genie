@@ -177,6 +177,7 @@ private fun ContentView(navController: NavController) {
 
 }
 
+//Basic Text field with title text component
 @Composable
 private fun TextFieldComposable(value: String, onValueChange: (String) -> Unit, title: String, placeholder: String, keyboardOptions: KeyboardOptions) {
 

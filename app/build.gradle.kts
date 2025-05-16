@@ -17,7 +17,7 @@ android {
 
     defaultConfig {
         applicationId = "com.advagroup.genie"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 35
         versionCode = 1
         versionName = "1.0.3"
@@ -95,6 +95,12 @@ dependencies {
 
     //Material Icon Extended
     implementation(libs.androidx.material.icons.extended)
+
+    //Lottie
+    implementation(libs.lottie.compose)
+
+    //Pager
+    implementation(libs.androidx.foundation)
 
 
 }

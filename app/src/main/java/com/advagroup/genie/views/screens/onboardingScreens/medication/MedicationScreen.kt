@@ -136,6 +136,7 @@ private fun ContentView(navController: NavController) {
 
         DefaultFormButtonWithoutFillWithLeadingIcon(
             title = stringResource(R.string.add_medication),
+            height = 70.dp,
             iconVector = Icons.Filled.Add,
             paddingValues = PaddingValues()
         ) {
@@ -250,7 +251,7 @@ fun MedicationItemComposable(dataSet: MedicationModel, onPressed: () -> Unit, on
     }
 }
 
-fun getCurrentMedicationsList(): List<MedicationModel> {
+private fun getCurrentMedicationsList(): List<MedicationModel> {
     return listOf(
         MedicationModel(
             "Amlodipine",

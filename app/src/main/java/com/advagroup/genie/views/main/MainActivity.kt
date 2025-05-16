@@ -134,6 +134,7 @@ fun DisplayNav(modifier: Modifier) {
             AddAppointmentScreen(navController)
         }
 
+
         composable(route = Destinations.MainScreen.route) {
             MainScreen(navController)
         }

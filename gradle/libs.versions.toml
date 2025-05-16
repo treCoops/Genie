@@ -33,6 +33,11 @@ accompanistSystemuicontroller = "0.36.0"
 #Firebase
 firebaseBom = "33.13.0"
 
+#Lottie Compose
+lottieCompose = "4.2.0"
+
+#Pager
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -81,6 +86,11 @@ firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "fir
 #Material Icon Extended
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
 
+#Lottie Compose
+lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
+
+#Pager
+androidx-foundation = { module = "androidx.compose.foundation:foundation" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

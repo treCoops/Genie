@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.advagroup.genie.ui.theme.EditTextBackgroundColor
@@ -30,13 +31,13 @@ import com.advagroup.genie.ui.theme.LightGreenColor
 import com.advagroup.genie.ui.theme.SFPro
 
 @Composable
-fun DefaultFormButtonWithoutFillWithLeadingIcon(title: String, iconVector: ImageVector, paddingValues: PaddingValues, onClicked : () -> Unit) {
+fun DefaultFormButtonWithoutFillWithLeadingIcon(title: String, height: Dp, iconVector: ImageVector, paddingValues: PaddingValues, onClicked : () -> Unit) {
 
     Button(
         onClick = onClicked,
         modifier = Modifier
             .fillMaxWidth()
-            .height(70.dp)
+            .height(height)
             .padding(paddingValues)
             .border(
                 width = 2.dp,

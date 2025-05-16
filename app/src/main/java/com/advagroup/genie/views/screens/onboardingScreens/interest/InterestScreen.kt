@@ -138,6 +138,7 @@ private fun ContentView(navController: NavController) {
 
         DefaultFormButtonWithoutFillWithLeadingIcon(
             title = stringResource(R.string.add_interest),
+            height = 70.dp,
             iconVector = Icons.Filled.Add,
             paddingValues = PaddingValues()
         ) {

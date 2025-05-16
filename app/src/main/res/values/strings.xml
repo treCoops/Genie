@@ -50,11 +50,13 @@
     <string name="current_medications">Current Medications</string>
 
     <string name="medication_name">Medication Name</string>
+    <string name="medication">Medication</string>
     <string name="medication_take_and_dosage">Take &amp; Dosage</string>
     <string name="medication_take_and_dosage_value">%1$s, %2$s</string>
     <string name="medication_frequency">Frequency</string>
     <string name="medication_type">Type</string>
     <string name="add_medication">Add medication</string>
+    <string name="add_condition">Add condition</string>
     <string name="add_reminder">Add reminder</string>
     <string name="add_appointment">Add appointment</string>
     <string name="add_appointment_heading">Add Appointment</string>
@@ -108,6 +110,7 @@
     <string name="reminder_days_heading">Day(s)</string>
 
     <string name="name">Name</string>
+    <string name="note">Note</string>
     <string name="email">Email</string>
     <string name="time">Time</string>
     <string name="description">Description</string>
@@ -116,7 +119,21 @@
 
 
     <string name="nav_item_home_title">Home</string>
+    <string name="how_is_your_mood_today">How is your mood today?</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="calm_and_connect">Calm &amp; Connect</string>
+    <string name="relay_me">Relax Me</string>
+    <string name="lets_talk">Let\'s Talk</string>
+
     <string name="nav_item_profile_title">Profile</string>
+    <string name="account">Account</string>
+    <string name="birthday">Birthday</string>
+    <string name="emergency_contact">Emergency Contact</string>
+    <string name="care_giver_details">Care Giver Details</string>
+    <string name="contact_number">Contact Number</string>
+
+
+
     <string name="nav_item_settings_title">Settings</string>
 
 

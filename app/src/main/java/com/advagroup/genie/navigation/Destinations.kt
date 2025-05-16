@@ -22,4 +22,11 @@ sealed class Destinations(val route: String) {
     object ProfileScreen: Destinations("ProfileScreen")
     object FamilyScreen: Destinations("FamilyScreen")
     object AddFamilyMemberScreen: Destinations("AddFamilyMemberScreen")
+
+
+    object ProfileAccountScreen: Destinations("ProfileAccountScreen")
+    object ProfileHealthConditionScreen: Destinations("ProfileHealthConditionScreen")
+    object ProfileMedicationScreen: Destinations("ProfileMedicationScreen")
+    object ProfileFamilyScreen: Destinations("ProfileFamilyScreen")
+
 }
