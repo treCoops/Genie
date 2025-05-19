@@ -17,7 +17,6 @@ navigationCompose = "2.9.0"
 
 #Navigation Animation
 animationCompose = "1.8.1"
-animationBaseCompose = "1.6.5"
 
 #Constraint Layout Compose
 constraintlayoutCompose = "1.1.1"
@@ -41,8 +40,6 @@ firebaseBom = "33.13.0"
 lottieCompose = "4.2.0"
 
 [libraries]
-androidx-animation-base = { module = "androidx.compose.animation:animation-base", version.ref = "animationBaseCompose"  }
-androidx-animation-core = { module = "androidx.compose.animation:animation-core", version.ref = "animationCompose"  }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -61,6 +58,7 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 
 #Navigation Animation Compose
+androidx-animation-core = { module = "androidx.compose.animation:animation-core", version.ref = "animationCompose"  }
 
 #Constraint Layout Compose
 androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintlayoutCompose" }
