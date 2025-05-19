@@ -1,4 +1,4 @@
-package com.advagroup.genie.views.screens.mainScreens.profileScreen.medication
+package com.advagroup.genie.views.screens.mainScreens.profileScreens.medication
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -58,7 +58,7 @@ fun ProfileMedicationScreen(navController: NavController) {
     ) {
 
         Text(
-            text = stringResource(R.string.medication),
+            text = stringResource(R.string.medications),
             fontWeight = FontWeight.Bold,
             fontFamily = QuickSand,
             color = MaterialTheme.colorScheme.onBackground,

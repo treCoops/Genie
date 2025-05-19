@@ -20,7 +20,7 @@ android {
         minSdk = 26
         targetSdk = 35
         versionCode = 1
-        versionName = "1.0.3"
+        versionName = "1.0.4"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -66,6 +66,10 @@ dependencies {
 
     //Compose Navigation
     implementation(libs.androidx.navigation.compose)
+
+    //Compose Navigation Animation
+    implementation(libs.androidx.animation.core)
+    //implementation(libs.androidx.animation.base)
 
     //Compose Constraint Layout
     implementation(libs.androidx.constraintlayout.compose)

@@ -50,7 +50,7 @@
     <string name="current_medications">Current Medications</string>
 
     <string name="medication_name">Medication Name</string>
-    <string name="medication">Medication</string>
+    <string name="medications">Medications</string>
     <string name="medication_take_and_dosage">Take &amp; Dosage</string>
     <string name="medication_take_and_dosage_value">%1$s, %2$s</string>
     <string name="medication_frequency">Frequency</string>
@@ -78,6 +78,7 @@
     <string name="enter_medication_dosage_placeholder">Enter medication dosage</string>
     <string name="select_the_time">Select the time</string>
     <string name="family_info">Family Info</string>
+    <string name="family">Family</string>
     <string name="family_member_details">Member Details</string>
     <string name="reminder_details">Reminder Details</string>
     <string name="appointment_details">Appointment Details</string>
@@ -131,6 +132,10 @@
     <string name="emergency_contact">Emergency Contact</string>
     <string name="care_giver_details">Care Giver Details</string>
     <string name="contact_number">Contact Number</string>
+
+    <string name="reminders">Reminders</string>
+    <string name="interests">Interests</string>
+    <string name="appointments">Appointments</string>
 
 
 

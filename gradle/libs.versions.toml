@@ -1,19 +1,23 @@
 [versions]
-agp = "8.9.2"
+agp = "8.9.3"
 kotlin = "2.1.10"
 coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 activityCompose = "1.10.1"
-composeBom = "2025.04.01"
+composeBom = "2025.05.00"
 
 #KSP and KAPT
 org-jetbrains-kotlin-android = "1.8.0"
 ksp = "2.1.10-1.0.31"
 
 #Navigation Compose
-navigationCompose = "2.8.9"
+navigationCompose = "2.9.0"
+
+#Navigation Animation
+animationCompose = "1.8.1"
+animationBaseCompose = "1.6.5"
 
 #Constraint Layout Compose
 constraintlayoutCompose = "1.1.1"
@@ -25,7 +29,7 @@ coreSplashscreen = "1.0.1"
 kotlinxCoroutinesAndroid = "1.7.3"
 
 #Android Lifecycle
-lifecycleRuntimeKtx = "2.8.7"
+lifecycleRuntimeKtx = "2.9.0"
 
 #System UI
 accompanistSystemuicontroller = "0.36.0"
@@ -36,9 +40,9 @@ firebaseBom = "33.13.0"
 #Lottie Compose
 lottieCompose = "4.2.0"
 
-#Pager
-
 [libraries]
+androidx-animation-base = { module = "androidx.compose.animation:animation-base", version.ref = "animationBaseCompose"  }
+androidx-animation-core = { module = "androidx.compose.animation:animation-core", version.ref = "animationCompose"  }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -55,6 +59,8 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 
 #Navigation Compose
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+
+#Navigation Animation Compose
 
 #Constraint Layout Compose
 androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintlayoutCompose" }

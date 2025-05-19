@@ -28,5 +28,8 @@ sealed class Destinations(val route: String) {
     object ProfileHealthConditionScreen: Destinations("ProfileHealthConditionScreen")
     object ProfileMedicationScreen: Destinations("ProfileMedicationScreen")
     object ProfileFamilyScreen: Destinations("ProfileFamilyScreen")
+    object ProfileReminderScreen: Destinations("ProfileReminderScreen")
+    object ProfileAppointmentScreen: Destinations("ProfileAppointmentScreen")
+    object ProfileInterestScreen: Destinations("ProfileInterestScreen")
 
 }

@@ -20,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
@@ -39,6 +40,7 @@ fun DefaultFormButtonWithoutFillWithLeadingIcon(title: String, height: Dp, iconV
             .fillMaxWidth()
             .height(height)
             .padding(paddingValues)
+            .clip(RoundedCornerShape(18.dp))
             .border(
                 width = 2.dp,
                 color = LightGreenColor,

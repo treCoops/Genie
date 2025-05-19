@@ -13,7 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.advagroup.genie.navigation.Destinations
 import com.advagroup.genie.views.screens.mainScreens.homeScreen.HomeScreen
-import com.advagroup.genie.views.screens.mainScreens.profileScreen.ProfileScreen
+import com.advagroup.genie.views.screens.mainScreens.profileScreens.ProfileScreen
 import com.advagroup.genie.views.screens.mainScreens.settingsScreen.SettingsScreen
 import androidx.navigation.compose.composable
 

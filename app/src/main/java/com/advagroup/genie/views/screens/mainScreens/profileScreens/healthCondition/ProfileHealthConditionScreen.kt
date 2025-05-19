@@ -1,4 +1,4 @@
-package com.advagroup.genie.views.screens.mainScreens.profileScreen.healthCondition
+package com.advagroup.genie.views.screens.mainScreens.profileScreens.healthCondition
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -39,7 +39,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.advagroup.genie.R
 import com.advagroup.genie.dataModels.uiData.ProfileHealthConditionModel
-import com.advagroup.genie.navigation.Destinations
 import com.advagroup.genie.ui.theme.ExtraLightGreenColor
 import com.advagroup.genie.ui.theme.LightGreenColor
 import com.advagroup.genie.ui.theme.LightPrimary

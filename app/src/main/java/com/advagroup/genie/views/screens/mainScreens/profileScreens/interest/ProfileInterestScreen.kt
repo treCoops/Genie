@@ -1,4 +1,4 @@
-package com.advagroup.genie.views.screens.mainScreens.profileScreen.family
+package com.advagroup.genie.views.screens.mainScreens.profileScreens.interest
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -36,17 +36,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.advagroup.genie.R
-import com.advagroup.genie.dataModels.uiData.FamilyModel
+import com.advagroup.genie.dataModels.uiData.InterestModel
 import com.advagroup.genie.ui.theme.LightGreenColor
 import com.advagroup.genie.ui.theme.LightPrimary
 import com.advagroup.genie.ui.theme.QuickSand
 import com.advagroup.genie.views.reusableComposables.buttons.DefaultFormButtonWithoutFillWithLeadingIcon
 import com.advagroup.genie.views.reusableComposables.buttons.DefaultNavigationCircleButton
+import com.advagroup.genie.views.reusableComposables.textGroups.ListItemMultiLineTextGroupComposable
 import com.advagroup.genie.views.reusableComposables.textGroups.ListItemTextGroupComposable
 
-
 @Composable
-fun ProfileFamilyScreen(navController: NavController) {
+fun ProfileInterestScreen(navController: NavController) {
 
     var scrollScope = rememberScrollState()
 
@@ -57,9 +57,8 @@ fun ProfileFamilyScreen(navController: NavController) {
             .verticalScroll(scrollScope)
             .padding(horizontal = 20.dp)
     ) {
-
         Text(
-            text = stringResource(R.string.medication),
+            text = stringResource(R.string.interests),
             fontWeight = FontWeight.Bold,
             fontFamily = QuickSand,
             color = MaterialTheme.colorScheme.onBackground,
@@ -81,23 +80,25 @@ fun ProfileFamilyScreen(navController: NavController) {
                 .fillMaxWidth()
                 .weight(1f)
         ) {
+
             LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                items(getCurrentFamilyList().size) { index ->
-                    FamilyItemComposable(
-                        getCurrentFamilyList()[index],
+                items(getCurrentInterestList().size) { index ->
+                    InterestItemComposable(
+                        getCurrentInterestList()[index],
                         onPressed = {},
                         onDeleted = {}
                     )
                 }
             }
+
         }
 
         Spacer(modifier = Modifier.height(15.dp))
 
         DefaultFormButtonWithoutFillWithLeadingIcon(
-            title = stringResource(R.string.add_member),
+            title = stringResource(R.string.add_interest),
             height = 60.dp,
             iconVector = Icons.Filled.Add,
             paddingValues = PaddingValues()
@@ -106,14 +107,12 @@ fun ProfileFamilyScreen(navController: NavController) {
         }
 
         Spacer(modifier = Modifier.height(15.dp))
-
     }
 
 }
 
 @Composable
-private fun FamilyItemComposable(dataSet: FamilyModel, onPressed: () -> Unit, onDeleted: () -> Unit) {
-
+private fun InterestItemComposable(dataSet: InterestModel, onPressed: () -> Unit, onDeleted: () -> Unit) {
     Card(
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
@@ -123,18 +122,18 @@ private fun FamilyItemComposable(dataSet: FamilyModel, onPressed: () -> Unit, on
         modifier = Modifier
             .padding(bottom = 10.dp)
     ) {
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(20.dp)
         ) {
-
             Box(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 ListItemTextGroupComposable(
                     title = stringResource(R.string.name),
-                    value = stringResource(R.string.member_name_and_relationship, dataSet.name, dataSet.relationship)
+                    value = dataSet.interestName
                 )
 
                 DefaultNavigationCircleButton(
@@ -157,58 +156,47 @@ private fun FamilyItemComposable(dataSet: FamilyModel, onPressed: () -> Unit, on
 
             Spacer(modifier = Modifier.height(15.dp))
 
-            ListItemTextGroupComposable(
-                title = stringResource(R.string.email),
-                value = dataSet.email
+            ListItemMultiLineTextGroupComposable(
+                title = stringResource(R.string.description),
+                value = dataSet.interestNote
             )
 
-            Spacer(modifier = Modifier.height(10.dp))
-
-            Box(
-                modifier = Modifier.fillMaxWidth()
+            IconButton(
+                onClick = onDeleted,
+                modifier = Modifier
+                    .align(Alignment.End)
             ) {
-
-                ListItemTextGroupComposable(
-                    title = stringResource(R.string.phone_number),
-                    value = dataSet.phoneNo
+                Icon(
+                    Icons.Filled.Delete,
+                    "Delete Icon",
+                    modifier = Modifier.size(30.dp)
+                        .padding(),
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-
-                IconButton(
-                    onClick = onDeleted,
-                    modifier = Modifier.align(Alignment.BottomEnd)
-                ) {
-                    Icon(
-                        Icons.Filled.Delete,
-                        "Delete Icon",
-                        modifier = Modifier.size(30.dp),
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
             }
-        }
-    }
 
+        }
+
+    }
 }
 
-fun getCurrentFamilyList(): List<FamilyModel> {
+private fun getCurrentInterestList(): List<InterestModel> {
     return listOf(
-        FamilyModel(
-            "Hishara",
-            "Grandparent",
-            "hishara@gmail.com",
-            "+61233423431"
+        InterestModel(
+            "Photography",
+            "I have a keen eye for detail and loves freezing moments in time through my camera lens. Whether it's a busy street or a quiet sunset, I enjoy telling stories through visuals."
         ),
-        FamilyModel(
-            "Tharindu",
-            "Brother",
-            "tharindu@gmail.com",
-            "+61237657689"
+        InterestModel(
+            "Traveling",
+            "Wanderlust I drive to discover new places, cultures, and experiences. I find joy in spontaneous road trips, meeting locals, and collecting memories from every journey."
         ),
-        FamilyModel(
-            "Kalani",
-            "Sister",
-            "kalani@gmail.com",
-            "+94768764562"
+        InterestModel(
+            "Reading sci-fi novels",
+            "I Fascinated by futuristic worlds and imaginative storytelling, I often escape into sci-fi novels. I enjoy the thrill of exploring alternate realities and complex characters."
+        ),
+        InterestModel(
+            "Playing guitar",
+            "Music is my favorite way to relax. Playing the guitar help me unwind and express himself, whether I am learning a new song or improvising melodies late at night."
         )
     )
 }
