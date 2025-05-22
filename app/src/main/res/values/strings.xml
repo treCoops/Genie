@@ -141,5 +141,15 @@
 
     <string name="nav_item_settings_title">Settings</string>
 
+    <!--Validation Strings-->
+    <string name="signup_first_name_empty">First name is required.</string>
+    <string name="signup_last_name_empty">Last name is required.</string>
+    <string name="signup_dob_empty">Date of Birth is required.</string>
+    <string name="signup_username_empty">Username is required.</string>
+    <string name="signup_password_empty">Password is required.</string>
+    <string name="signup_confirm_password_empty">Confirm password is required.</string>
+    <string name="signup_password_mismatched">Passwords do not match. Please re-enter.</string>
+    <string name="signup_password_size">Password must have more then 8 characters.</string>
+
 
 </resources>

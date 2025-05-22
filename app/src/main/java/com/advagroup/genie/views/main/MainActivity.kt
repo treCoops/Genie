@@ -25,7 +25,7 @@ import com.advagroup.genie.views.screens.onboardingScreens.EmergencyContactInfor
 import com.advagroup.genie.views.screens.onboardingScreens.familyMember.FamilyScreen
 import com.advagroup.genie.views.screens.onboardingScreens.HealthConditionScreen
 import com.advagroup.genie.views.screens.onboardingScreens.medication.MedicationScreen
-import com.advagroup.genie.views.screens.onboardingScreens.SignUpScreen
+import com.advagroup.genie.views.screens.onboardingScreens.signup.SignUpScreen
 import com.advagroup.genie.views.screens.onboardingScreens.appointment.AddAppointmentScreen
 import com.advagroup.genie.views.screens.onboardingScreens.appointment.AppointmentScreen
 import com.advagroup.genie.views.screens.onboardingScreens.interest.AddInterestScreen
@@ -68,7 +68,7 @@ fun DisplayNav(modifier: Modifier) {
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = Destinations.WelcomeScreen.route //Default is WelcomeScreen
+        startDestination = Destinations.SignUpScreen.route //Default is WelcomeScreen
     ) {
         composable(route = Destinations.WelcomeScreen.route) {
             WelcomeScreen(navController)

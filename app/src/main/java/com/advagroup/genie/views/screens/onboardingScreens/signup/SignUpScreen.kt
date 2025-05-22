@@ -1,4 +1,4 @@
-package com.advagroup.genie.views.screens.onboardingScreens
+package com.advagroup.genie.views.screens.onboardingScreens.signup
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -42,6 +42,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
@@ -52,10 +53,16 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.advagroup.genie.R
+import com.advagroup.genie.dataModels.uiData.FormValidationModel
+import com.advagroup.genie.db.DB
+import com.advagroup.genie.db.entities.UserEntity
+import com.advagroup.genie.db.repositories.UserRepository
+import com.advagroup.genie.helpers.Validator
 import com.advagroup.genie.helpers.convertTimeMillisLongToString
-import com.advagroup.genie.navigation.Destinations
+import com.advagroup.genie.ui.theme.DangerColor
 import com.advagroup.genie.ui.theme.EditTextBackgroundColor
 import com.advagroup.genie.ui.theme.LightGreenColor
 import com.advagroup.genie.ui.theme.SFPro
@@ -79,6 +86,15 @@ fun SignUpScreen(navController: NavController) {
 @Composable
 private fun MainView(navController: NavController) {
 
+    val mContext = LocalContext.current.applicationContext
+    val db = DB.getInstance(mContext)
+    val repository = UserRepository(db)
+
+    val viewModel : SignUpScreenViewModel = viewModel(
+        factory = SignUpScreenViewModelFactory(repository)
+    )
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -94,28 +110,46 @@ private fun MainView(navController: NavController) {
                 .size(30.dp)
         )
 
-        ContentView(navController)
+        ContentView(viewModel, navController)
     }
 }
 
 @Composable
-private fun ContentView(navController: NavController) {
+private fun ContentView(viewModel: SignUpScreenViewModel, navController: NavController) {
 
     val scrollState = rememberScrollState()
 
     var firstName by remember { mutableStateOf("") }
+    var firstNameErrorHandler by remember { mutableStateOf(FormValidationModel(false)) }
+    val firstNameEmptyErrorMessage = stringResource(R.string.signup_first_name_empty)
+
     var lastName by remember { mutableStateOf("") }
+    var lastNameErrorHandler by remember { mutableStateOf(FormValidationModel(false)) }
+    val lastNameEmptyErrorMessage = stringResource(R.string.signup_last_name_empty)
+
     var dateOfBirth by remember { mutableStateOf("") }
+    var dateOfBirthErrorHandler by remember { mutableStateOf(FormValidationModel(false)) }
+    val dateOfEmptyErrorMessage = stringResource(R.string.signup_dob_empty)
 
     val radioOptions = listOf("Male", "Female")
-
-    val (selectedItem, onOptionSelected) = remember {
+    val (selectedGenderItem, onOptionSelected) = remember {
         mutableStateOf(radioOptions[0])
     }
 
     var userName by remember { mutableStateOf("") }
+    var userNameErrorHandler by remember { mutableStateOf(FormValidationModel(false)) }
+    val userNameEmptyErrorMessage = stringResource(R.string.signup_username_empty)
+
+
     var password by remember { mutableStateOf("") }
+    var passwordErrorHandler by remember { mutableStateOf(FormValidationModel(false)) }
+    val passwordEmptyErrorMessage = stringResource(R.string.signup_password_empty)
+    val passwordSizeErrorMessage = stringResource(R.string.signup_password_size)
+
     var confirmPassword by remember { mutableStateOf("") }
+    var confirmPasswordErrorHandler by remember { mutableStateOf(FormValidationModel(false)) }
+    val confirmPasswordEmptyErrorMessage = stringResource(R.string.signup_confirm_password_empty)
+    val confirmPasswordMismatchErrorMessage = stringResource(R.string.signup_password_mismatched)
 
     var showDatePicker by remember { mutableStateOf(false) }
 
@@ -142,7 +176,14 @@ private fun ContentView(navController: NavController) {
             value = firstName,
             onValueChange = {
                 firstName = it
+
+                firstNameErrorHandler = if(Validator.getInstance().isStringEmpty(firstName)) {
+                    FormValidationModel(true, firstNameEmptyErrorMessage)
+                } else {
+                    FormValidationModel(false)
+                }
             },
+            firstNameErrorHandler,
             stringResource(R.string.first_name),
             stringResource(R.string.first_name_placeholder),
             keyboardOptions = KeyboardOptions(
@@ -157,7 +198,13 @@ private fun ContentView(navController: NavController) {
             value = lastName,
             onValueChange = {
                 lastName = it
+                lastNameErrorHandler = if(Validator.getInstance().isStringEmpty(lastName)) {
+                    FormValidationModel(true, lastNameEmptyErrorMessage)
+                } else {
+                    FormValidationModel(false)
+                }
             },
+            lastNameErrorHandler,
             stringResource(R.string.last_name),
             stringResource(R.string.last_name_placeholder),
             keyboardOptions = KeyboardOptions(
@@ -171,6 +218,7 @@ private fun ContentView(navController: NavController) {
         DateOfBirthComposable(
             title = stringResource(R.string.date_of_birth),
             value = dateOfBirth,
+            errorHandler = dateOfBirthErrorHandler,
             onClicked = {
                 showDatePicker = true
             }
@@ -181,6 +229,12 @@ private fun ContentView(navController: NavController) {
                 onDateSelected = { selectedDate ->
                     selectedDate?.let {
                         dateOfBirth = it.convertTimeMillisLongToString("yyyy-MM-dd")
+
+                        dateOfBirthErrorHandler = if(Validator.getInstance().isStringEmpty(dateOfBirth)) {
+                            FormValidationModel(true, dateOfEmptyErrorMessage)
+                        } else {
+                            FormValidationModel(false)
+                        }
                     }
 
                     showDatePicker = false
@@ -196,7 +250,7 @@ private fun ContentView(navController: NavController) {
         GenderRadioButtonGroupComposable(
             title = stringResource(R.string.gender),
             radioOptions = radioOptions,
-            selectedItem = selectedItem,
+            selectedItem = selectedGenderItem,
             onOptionSelected = { item ->
                 onOptionSelected(item)
             }
@@ -208,7 +262,14 @@ private fun ContentView(navController: NavController) {
             value = userName,
             onValueChange = {
                 userName = it
+
+                userNameErrorHandler = if(Validator.getInstance().isStringEmpty(userName)) {
+                    FormValidationModel(true, userNameEmptyErrorMessage)
+                } else {
+                    FormValidationModel(false)
+                }
             },
+            userNameErrorHandler,
             stringResource(R.string.username),
             stringResource(R.string.username_placeholder),
             keyboardOptions = KeyboardOptions(
@@ -223,7 +284,18 @@ private fun ContentView(navController: NavController) {
             value = password,
             onValueChange = {
                 password = it
+
+                passwordErrorHandler = if(Validator.getInstance().isStringEmpty(password)) {
+                    FormValidationModel(true, passwordEmptyErrorMessage)
+                } else {
+                    if(Validator.getInstance().textCount(password, 8)) {
+                        FormValidationModel(false)
+                    } else {
+                        FormValidationModel(true, passwordSizeErrorMessage)
+                    }
+                }
             },
+            passwordErrorHandler,
             stringResource(R.string.password),
             stringResource(R.string.password_placeholder),
             isPassword = true,
@@ -239,7 +311,23 @@ private fun ContentView(navController: NavController) {
             value = confirmPassword,
             onValueChange = {
                 confirmPassword = it
+
+                confirmPasswordErrorHandler = if (Validator.getInstance().isStringEmpty(confirmPassword)) {
+                    FormValidationModel(true, confirmPasswordEmptyErrorMessage)
+                } else {
+
+                    if(Validator.getInstance().textCount(confirmPassword, 8)) {
+                        if (Validator.getInstance().isPasswordSame(password, confirmPassword)) {
+                            FormValidationModel(false)
+                        } else {
+                            FormValidationModel(true, confirmPasswordMismatchErrorMessage)
+                        }
+                    } else {
+                        FormValidationModel(true, passwordSizeErrorMessage)
+                    }
+                }
             },
+            confirmPasswordErrorHandler,
             stringResource(R.string.confirm_password),
             stringResource(R.string.confirm_password_placeholder),
             isPassword = true,
@@ -253,11 +341,85 @@ private fun ContentView(navController: NavController) {
 
         DefaultFormButtonWithFill(
             title = "Next",
-            paddingValues = PaddingValues(),
-            {
-                navController.navigate(Destinations.EmergencyContactInformationScreen.route)
+            paddingValues = PaddingValues()
+        ) {
+
+            var validationFlag = 0
+
+            firstNameErrorHandler = if (Validator.getInstance().isStringEmpty(firstName)) {
+                validationFlag = 1
+                FormValidationModel(true, firstNameEmptyErrorMessage)
+            } else {
+                FormValidationModel(false)
             }
-        )
+
+            lastNameErrorHandler = if (Validator.getInstance().isStringEmpty(lastName)) {
+                validationFlag = 1
+                FormValidationModel(true, lastNameEmptyErrorMessage)
+            } else {
+                FormValidationModel(false)
+            }
+
+            dateOfBirthErrorHandler = if (Validator.getInstance().isStringEmpty(dateOfBirth)) {
+                validationFlag = 1
+                FormValidationModel(true, dateOfEmptyErrorMessage)
+            } else {
+                FormValidationModel(false)
+            }
+
+            userNameErrorHandler = if (Validator.getInstance().isStringEmpty(userName)) {
+                validationFlag = 1
+                FormValidationModel(true, userNameEmptyErrorMessage)
+            } else {
+                FormValidationModel(false)
+            }
+
+            passwordErrorHandler = if (Validator.getInstance().isStringEmpty(password)) {
+                validationFlag = 1
+                FormValidationModel(true, passwordEmptyErrorMessage)
+            } else {
+                if(Validator.getInstance().textCount(confirmPassword, 8)) {
+                    FormValidationModel(false)
+                } else {
+                    validationFlag = 1
+                    FormValidationModel(true, passwordSizeErrorMessage)
+                }
+            }
+
+            confirmPasswordErrorHandler = if (Validator.getInstance().isStringEmpty(confirmPassword)) {
+                validationFlag = 1
+                FormValidationModel(true, confirmPasswordEmptyErrorMessage)
+            } else {
+                if(Validator.getInstance().textCount(confirmPassword, 8)) {
+                    if (Validator.getInstance().isPasswordSame(password, confirmPassword)) {
+                        FormValidationModel(false)
+                    } else {
+                        validationFlag = 1
+                        FormValidationModel(true, confirmPasswordMismatchErrorMessage)
+                    }
+                } else {
+                    validationFlag = 1
+                    FormValidationModel(true, passwordSizeErrorMessage)
+                }
+            }
+
+            if(validationFlag == 0) {
+
+                val userEntity = UserEntity(
+                    0,
+                    firstName,
+                    lastName,
+                    dateOfBirth,
+                    selectedGenderItem,
+                    userName,
+                    password
+                )
+
+                viewModel.saveUser(userEntity)
+            }
+
+            //navController.navigate(Destinations.EmergencyContactInformationScreen.route)
+        }
 
         Spacer(modifier = Modifier.height(50.dp))
 
@@ -284,14 +446,12 @@ private fun DatePickerComposable(onDateSelected: (Long?) -> Unit, onDismiss: () 
 }
 
 @Composable
-private fun TextFieldComposable(value: String, onValueChange: (String) -> Unit, title: String, placeholder: String, isPassword: Boolean = false, keyboardOptions: KeyboardOptions) {
+private fun TextFieldComposable(value: String, onValueChange: (String) -> Unit, errorHandler: FormValidationModel, title: String, placeholder: String, isPassword: Boolean = false, keyboardOptions: KeyboardOptions) {
 
-    val visualTransformation: VisualTransformation
-
-    if(isPassword){
-        visualTransformation = PasswordVisualTransformation()
+    val visualTransformation: VisualTransformation = if(isPassword){
+        PasswordVisualTransformation()
     } else {
-        visualTransformation = VisualTransformation.None
+        VisualTransformation.None
     }
 
     Column(
@@ -312,7 +472,9 @@ private fun TextFieldComposable(value: String, onValueChange: (String) -> Unit, 
 
         DefaultTextField(
             value = value,
-            onValueChange = onValueChange,
+            onValueChange = {
+                onValueChange(it)
+            },
             placeholder = placeholder,
             keyboardOptions = keyboardOptions,
             keyboardActions = KeyboardActions(
@@ -324,11 +486,26 @@ private fun TextFieldComposable(value: String, onValueChange: (String) -> Unit, 
             modifier = Modifier
                 .fillMaxWidth()
         )
+
+        if(errorHandler.isError) {
+            Spacer(modifier = Modifier.height(5.dp))
+            Text(
+                text = errorHandler.errorMessage,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 3.dp),
+                fontFamily = SFPro,
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 14.sp,
+                color = DangerColor
+            )
+        }
+
     }
 }
 
 @Composable
-private fun DateOfBirthComposable(title: String, value: String, onClicked: () -> Unit) {
+private fun DateOfBirthComposable(title: String, value: String, errorHandler: FormValidationModel, onClicked: () -> Unit) {
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -389,6 +566,20 @@ private fun DateOfBirthComposable(title: String, value: String, onClicked: () ->
                 )
             }
 
+        }
+
+        if(errorHandler.isError) {
+            Spacer(modifier = Modifier.height(5.dp))
+            Text(
+                text = errorHandler.errorMessage,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 3.dp),
+                fontFamily = SFPro,
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 14.sp,
+                color = DangerColor
+            )
         }
 
     }

@@ -103,8 +103,13 @@ dependencies {
     //Lottie
     implementation(libs.lottie.compose)
 
-    //Pager
+    //Foundation (Pager)
     implementation(libs.androidx.foundation)
+
+    //Room
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 
 
 }
